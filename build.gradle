@@ -1,0 +1,24 @@
+group 'org.openflexo'
+version '0.1-SNAPSHOT'
+
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+
+repositories {
+    mavenCentral()
+}
+
+// Sets SNAPSHOT publication to OpenFlexo artifactory
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "https://maven.openflexo.org/artifactory/openflexo-snapshot/")
+        }
+    }
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+}
