@@ -9,13 +9,13 @@ import org.gradle.api.tasks.javadoc.Javadoc
  * OpenFlexo build plugin configuration
  */
 class OpenFlexoExtension {
-    String version = "1.4-SNAPSHOT";
+    String version = "1.9.0-SNAPSHOT";
 
     String connieVersion = "1.4-SNAPSHOT";
     String pamelaVersion = "1.4-SNAPSHOT";
 
-    def String ginaVersion = "2.1-SNAPSHOT"
-    def String dianaVersion = "1.4-SNAPSHOT"
+    String ginaVersion = "2.1-SNAPSHOT"
+    String dianaVersion = "1.4-SNAPSHOT"
 }
 
 /**
@@ -45,6 +45,77 @@ class OpenFlexoConvention {
         return "org.openflexo:pamela-core:${project.openflexo.pamelaVersion}"
     }
 
+    String flexoGraphicUtils() {
+        return "org.openflexo:flexographicutils:${project.openflexo.ginaVersion}"
+    }
+
+    String flexoLocalization() {
+        return "org.openflexo:flexolocalization:${project.openflexo.ginaVersion}"
+    }
+
+    String ginaApi() {
+        return "org.openflexo:gina-api:${project.openflexo.ginaVersion}"
+    }
+
+    String gina() {
+        return "org.openflexo:gina-core:${project.openflexo.ginaVersion}"
+    }
+
+    String ginaEvents() {
+        return "org.openflexo:gina-events:${project.openflexo.ginaVersion}"
+    }
+
+    String ginaReplay() {
+        return "org.openflexo:gina-replay:${project.openflexo.ginaVersion}"
+    }
+
+    String ginaReplayTest() {
+        return "org.openflexo:gina-replay-test:${project.openflexo.ginaVersion}"
+    }
+
+    String ginaSwing() {
+        return "org.openflexo:gina-swing:${project.openflexo.ginaVersion}"
+    }
+
+    String ginaSwingEditor() {
+        return "org.openflexo:gina-swing-editor:${project.openflexo.ginaVersion}"
+    }
+
+    String ginaSwingEditorTest() {
+        return "org.openflexo:gina-swing-editor-test:${project.openflexo.ginaVersion}"
+    }
+
+    String ginaTest() {
+        return "org.openflexo:gina-test:${project.openflexo.ginaVersion}"
+    }
+
+    String dianaApi() {
+        return "org.openflexo:diana-api:${project.openflexo.dianaVersion}"
+    }
+
+    String diana() {
+        return "org.openflexo:diana-core:${project.openflexo.dianaVersion}"
+    }
+
+    String dianaTest() {
+        return "org.openflexo:diana-core-test:${project.openflexo.dianaVersion}"
+    }
+
+    String dianaDrawingEditor() {
+        return "org.openflexo:diana-drawing-editor:${project.openflexo.dianaVersion}"
+    }
+
+    String dianaGeom() {
+        return "org.openflexo:diana-geom:${project.openflexo.dianaVersion}"
+    }
+
+    String dianaPptEditor() {
+        return "org.openflexo:diana-ppt-editor:${project.openflexo.dianaVersion}"
+    }
+
+    String dianaSwing() {
+        return "org.openflexo:diana-swing:${project.openflexo.dianaVersion}"
+    }
 }
 
 /**
