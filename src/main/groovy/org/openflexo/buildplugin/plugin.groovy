@@ -5,12 +5,14 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.api.tasks.javadoc.Javadoc
+
 /**
  * OpenFlexo build plugin configuration
  */
 class OpenFlexoExtension {
     String version = "1.9.0-SNAPSHOT";
 
+    String utilsVersion = "1.4-SNAPSHOT";
     String connieVersion = "1.4-SNAPSHOT";
     String pamelaVersion = "1.4-SNAPSHOT";
 
@@ -27,6 +29,14 @@ class OpenFlexoConvention {
 
     OpenFlexoConvention(project) {
         this.project = project;
+    }
+
+    String docx4all() {
+        return "org.openflexo:docx4all:${project.openflexo.utilsVersion}"
+    }
+
+    String flexoHelp() {
+        return "org.openflexo:flexohelp:${project.openflexo.utilsVersion}"
     }
 
     String flexoUtils() {
@@ -162,6 +172,7 @@ class OpenFlexoBuild implements Plugin<Project> {
                 maven { url "https://maven.openflexo.org/artifactory/openflexo-snapshot/" }
                 maven { url "https://maven.openflexo.org/artifactory/openflexo-release/" }
                 maven { url "https://maven.openflexo.org/artifactory/openflexo-deps/" }
+                maven { url "https://maven.openflexo.org/artifactory/openflexo-local-deps/" }
             }
 
             // Alls tests depends on junit 4
