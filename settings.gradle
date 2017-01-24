@@ -1,1 +1,1 @@
-include 'buildplugin'
+include 'buildplugin', 'buildconfig'
