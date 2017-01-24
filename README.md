@@ -13,11 +13,13 @@ buildscript {
     maven { url uri('https://maven.openflexo.org/artifactory/openflexo-release/') }
   }
   dependencies {
-    classpath group: 'org.openflexo', name: 'openflexo-buildplugin', version: '0.+'
+    classpath group: 'org.openflexo', name: 'buildplugin', version: '0.+'
+    classpath group: 'org.openflexo', name: 'buildconfig', version: '1.9.0-SNAPSHOT'
   }
 }
 
-apply plugin: 'org.openflexo.buildplugin'
+apply plugin: 'org.openflexo.buildconfig'
+
 openflexo.version = "1.4-SNAPSHOT"
 
 dependencies {
