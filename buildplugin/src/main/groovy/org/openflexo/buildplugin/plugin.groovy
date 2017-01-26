@@ -183,6 +183,10 @@ class OpenFlexoBuild implements Plugin<Project> {
                     }
                 }
             }
+
+            test {
+                maxParallelForks = 1;
+            }
         }
 
         project.allprojects {
