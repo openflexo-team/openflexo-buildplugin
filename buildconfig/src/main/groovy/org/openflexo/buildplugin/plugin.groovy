@@ -12,7 +12,7 @@ class OpenFlexoBuildConfig implements Plugin<Project> {
     void apply(Project project) {
         project.apply plugin: 'org.openflexo.buildplugin'
 
-        project.openflexo.version = "1.9.0-SNAPSHOT";
+        project.openflexo.version = "1.8.1-SNAPSHOT";
 
         project.openflexo.utilsVersion = "1.4-SNAPSHOT";
         project.openflexo.connieVersion = "1.4-SNAPSHOT";
