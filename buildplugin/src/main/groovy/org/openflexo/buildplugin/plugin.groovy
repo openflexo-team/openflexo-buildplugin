@@ -150,20 +150,10 @@ class OpenFlexoBuild implements Plugin<Project> {
             //  apply plugin: 'findbugs'
             //  apply plugin: 'Site'
 
-
             // Sets Java compile option to use UTF-8 encoding
             compileJava.options.encoding = 'UTF-8'
             tasks.withType(JavaCompile) {
                 options.encoding = 'UTF-8'
-            }
-
-            // Sets SNAPSHOT publication to OpenFlexo artifactory
-            uploadArchives {
-                repositories {
-                    mavenDeployer {
-                        repository(url: "https://maven.openflexo.org/artifactory/openflexo-snapshot/")
-                    }
-                }
             }
 
             // Declares repositories to refer to
@@ -184,8 +174,22 @@ class OpenFlexoBuild implements Plugin<Project> {
                 }
             }
 
+            configurations.all {
+                // Check for updates every build
+                resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+            }
+
             test {
                 maxParallelForks = 1;
+            }
+
+            // Sets SNAPSHOT publication to OpenFlexo artifactory
+            uploadArchives {
+                repositories {
+                    mavenDeployer {
+                        repository(url: "https://maven.openflexo.org/artifactory/openflexo-snapshot/")
+                    }
+                }
             }
         }
 
