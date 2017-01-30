@@ -17,6 +17,7 @@ class OpenFlexoExtension {
     String pamelaVersion = ""
     String ginaVersion = ""
     String dianaVersion = ""
+    String openflexoVersion = ""
 }
 
 /**
@@ -124,6 +125,62 @@ class OpenFlexoConvention {
 
     String dianaSwing() {
         return "org.openflexo:diana-swing:${project.openflexo.dianaVersion}"
+    }
+
+    String flexoDocumentation() {
+        return "org.openflexo:flexo-documentation:${project.openflexo.openflexoVersion}"
+    }
+
+    String flexoDocumentationUi() {
+        return "org.openflexo:flexo-documentation-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String flexoFoundation() {
+        return "org.openflexo:flexo-foundation:${project.openflexo.openflexoVersion}"
+    }
+
+    String flexoFoundationTest() {
+        return "org.openflexo:flexo-foundation-test:${project.openflexo.openflexoVersion}"
+    }
+
+    String flexoOntology() {
+        return "org.openflexo:flexo-ontology:${project.openflexo.openflexoVersion}"
+    }
+
+    String flexoOntologyUi() {
+        return "org.openflexo:flexo-ontology-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String flexoTestResources() {
+        return "org.openflexo:flexo-test-resources:${project.openflexo.openflexoVersion}"
+    }
+
+    String flexoUi() {
+        return "org.openflexo:flexo-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String flexoUiTest() {
+        return "org.openflexo:flexo-ui-test:${project.openflexo.openflexoVersion}"
+    }
+
+    String flexoDocResourceCenter() {
+        return "org.openflexo:flexodocresourcecenter:${project.openflexo.openflexoVersion}"
+    }
+
+    String flexoDocResourceManager() {
+        return "org.openflexo:flexodocresourcemanager:${project.openflexo.openflexoVersion}"
+    }
+
+    String fmlParser() {
+        return "org.openflexo:fml-parser:${project.openflexo.openflexoVersion}"
+    }
+
+    String fmlTechnologyadapterUi() {
+        return "org.openflexo:fml-technologyadapter-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String fmlRtTechnologyadapterUi() {
+        return "org.openflexo:fml-rt-technologyadapter-ui:${project.openflexo.openflexoVersion}"
     }
 }
 
