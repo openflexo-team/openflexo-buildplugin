@@ -175,11 +175,11 @@ class OpenFlexoConvention {
         return "org.openflexo:fml-parser:${project.openflexo.openflexoVersion}"
     }
 
-    String fmlTechnologyadapterUi() {
+    String fmlTechnologyAdapterUi() {
         return "org.openflexo:fml-technologyadapter-ui:${project.openflexo.openflexoVersion}"
     }
 
-    String fmlRtTechnologyadapterUi() {
+    String fmlRtTechnologyAdapterUi() {
         return "org.openflexo:fml-rt-technologyadapter-ui:${project.openflexo.openflexoVersion}"
     }
 }
