@@ -182,6 +182,118 @@ class OpenFlexoConvention {
     String fmlRtTechnologyAdapterUi() {
         return "org.openflexo:fml-rt-technologyadapter-ui:${project.openflexo.openflexoVersion}"
     }
+
+    String cvsConnector() {
+        return "org.openflexo:cvsconnector:${project.openflexo.openflexoVersion}"
+    }
+
+    String docxConnector() {
+        return "org.openflexo:docxconnector:${project.openflexo.openflexoVersion}"
+    }
+
+    String emfConnector() {
+        return "org.openflexo:emfconnector:${project.openflexo.openflexoVersion}"
+    }
+
+    String excelConnector() {
+        return "org.openflexo:excelconnector:${project.openflexo.openflexoVersion}"
+    }
+
+    String flexoDiagram() {
+        return "org.openflexo:flexodiagram:${project.openflexo.openflexoVersion}"
+    }
+
+    String freePlaneConnector() {
+        return "org.openflexo:freeplaneconnector:${project.openflexo.openflexoVersion}"
+    }
+
+    String ginaConnector() {
+        return "org.openflexo:ginaconnector:${project.openflexo.openflexoVersion}"
+    }
+
+    String odtConnector() {
+        return "org.openflexo:odtconnector:${project.openflexo.openflexoVersion}"
+    }
+
+    String oslcConnector() {
+        return "org.openflexo:oslcconnector:${project.openflexo.openflexoVersion}"
+    }
+
+    String owlConnector() {
+        return "org.openflexo:owlconnector:${project.openflexo.openflexoVersion}"
+    }
+
+    String owlConnectorRc() {
+        return "org.openflexo:owlconnector-rc:${project.openflexo.openflexoVersion}"
+    }
+
+    String pdfConnector() {
+        return "org.openflexo:pdfconnector:${project.openflexo.openflexoVersion}"
+    }
+
+    String powerpointConnector() {
+        return "org.openflexo:powerpointconnector:${project.openflexo.openflexoVersion}"
+    }
+
+    String xmlConnector() {
+        return "org.openflexo:xmlconnector:${project.openflexo.openflexoVersion}"
+    }
+
+    String cvsConnectorUi() {
+        return "org.openflexo:cvsconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String docxConnectorUi() {
+        return "org.openflexo:docxconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String emfConnectorUi() {
+        return "org.openflexo:emfconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String excelConnectorUi() {
+        return "org.openflexo:excelconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String flexoDiagramUi() {
+        return "org.openflexo:flexodiagram-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String freePlaneConnectorUi() {
+        return "org.openflexo:freeplaneconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String ginaConnectorUi() {
+        return "org.openflexo:ginaconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String odtConnectorUi() {
+        return "org.openflexo:odtconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String oslcConnectorUi() {
+        return "org.openflexo:oslcconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String owlConnectorUi() {
+        return "org.openflexo:owlconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String pdfConnectorUi() {
+        return "org.openflexo:pdfconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String powerpointConnectorUi() {
+        return "org.openflexo:powerpointconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String xmlConnectorUi() {
+        return "org.openflexo:xmlconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String openflexo(String name) {
+        return "org.openflexo:$name:${project.openflexo.openflexoVersion}"
+    }
 }
 
 /**
