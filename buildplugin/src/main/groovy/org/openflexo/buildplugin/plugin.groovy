@@ -10,8 +10,6 @@ import org.gradle.api.tasks.javadoc.Javadoc
  * OpenFlexo build plugin configuration
  */
 class OpenFlexoExtension {
-    String version = "";
-
     String utilsVersion = ""
     String connieVersion = ""
     String pamelaVersion = ""
@@ -363,7 +361,6 @@ class OpenFlexoBuild implements Plugin<Project> {
 
         project.allprojects {
             group='org.openflexo'
-            version = project.openflexo.version
 
             apply plugin: 'project-report'
 
