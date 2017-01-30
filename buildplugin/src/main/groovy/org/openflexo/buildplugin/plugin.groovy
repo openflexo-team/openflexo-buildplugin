@@ -10,14 +10,13 @@ import org.gradle.api.tasks.javadoc.Javadoc
  * OpenFlexo build plugin configuration
  */
 class OpenFlexoExtension {
-    String version = "1.9.0-SNAPSHOT";
+    String version = "";
 
-    String utilsVersion = "1.4-SNAPSHOT";
-    String connieVersion = "1.4-SNAPSHOT";
-    String pamelaVersion = "1.4-SNAPSHOT";
-
-    String ginaVersion = "2.1-SNAPSHOT"
-    String dianaVersion = "1.4-SNAPSHOT"
+    String utilsVersion = ""
+    String connieVersion = ""
+    String pamelaVersion = ""
+    String ginaVersion = ""
+    String dianaVersion = ""
 }
 
 /**
