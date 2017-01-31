@@ -289,6 +289,26 @@ class OpenFlexoConvention {
         return "org.openflexo:xmlconnector-ui:${project.openflexo.openflexoVersion}"
     }
 
+    String connie(String name) {
+        return "org.openflexo:$name:${project.openflexo.connieVersion}"
+    }
+
+    String pamela(String name) {
+        return "org.openflexo:$name:${project.openflexo.pamelaVersion}"
+    }
+
+    String gina(String name) {
+        return "org.openflexo:$name:${project.openflexo.ginaVersion}"
+    }
+
+    String diana(String name) {
+        return "org.openflexo:$name:${project.openflexo.dianaVersion}"
+    }
+
+    String utils(String name) {
+        return "org.openflexo:$name:${project.openflexo.utilsVersion}"
+    }
+
     String openflexo(String name) {
         return "org.openflexo:$name:${project.openflexo.openflexoVersion}"
     }
@@ -367,7 +387,6 @@ class OpenFlexoBuild implements Plugin<Project> {
             htmlDependencyReport {
                 projects = project.allprojects
             }
-
         }
 
     }
