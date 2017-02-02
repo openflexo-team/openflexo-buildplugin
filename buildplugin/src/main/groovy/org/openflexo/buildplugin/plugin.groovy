@@ -330,11 +330,7 @@ class OpenFlexoBuild implements Plugin<Project> {
         project.subprojects {
             apply plugin: 'maven'
             apply plugin: 'java'
-
-            //  apply plugin: 'checkstyle'
-            //  apply plugin: 'pmd'
-            //  apply plugin: 'findbugs'
-            //  apply plugin: 'Site'
+            apply plugin: 'jacoco'
 
             // Sets Java compile option to use UTF-8 encoding
             compileJava.options.encoding = 'UTF-8'
