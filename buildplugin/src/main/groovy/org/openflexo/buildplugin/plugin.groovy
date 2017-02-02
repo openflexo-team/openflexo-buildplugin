@@ -330,7 +330,6 @@ class OpenFlexoBuild implements Plugin<Project> {
         project.subprojects {
             apply plugin: 'maven'
             apply plugin: 'java'
-            apply plugin: 'jacoco'
 
             // Sets Java compile option to use UTF-8 encoding
             compileJava.options.encoding = 'UTF-8'
@@ -378,6 +377,7 @@ class OpenFlexoBuild implements Plugin<Project> {
         project.allprojects {
             group='org.openflexo'
 
+            apply plugin: 'jacoco'
             apply plugin: 'project-report'
 
             htmlDependencyReport {
