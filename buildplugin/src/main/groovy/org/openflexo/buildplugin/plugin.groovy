@@ -361,6 +361,7 @@ class OpenFlexoBuild implements Plugin<Project> {
             }
 
             test {
+                ignoreFailures = true
                 maxParallelForks = 1;
             }
 
