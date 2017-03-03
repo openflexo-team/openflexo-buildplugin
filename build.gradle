@@ -9,10 +9,6 @@ subprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'com.jfrog.artifactory'
 
-    repositories {
-        maven { url "https://maven.openflexo.org/artifactory/openflexo-deps/" }
-    }
-
     publishing {
         publications {
             mavenJava(MavenPublication) {
