@@ -322,7 +322,6 @@ class OpenFlexoConvention {
 class OpenFlexoBuild implements Plugin<Project> {
 
     void apply(Project project) {
-
         project.extensions.create("openflexo", OpenFlexoExtension)
 
         project.convention.plugins.put("openflexo", new OpenFlexoConvention(project))
@@ -339,7 +338,13 @@ class OpenFlexoBuild implements Plugin<Project> {
 
             // Declares repositories to refer to
             repositories {
-                maven { url "https://maven.openflexo.org/artifactory/openflexo-deps/" }
+                maven {
+                    url "https://maven.openflexo.org/artifactory/openflexo-deps/"
+                    credentials {
+                        username = "$System.env.ARTIFACTORY_USER" // The publisher user name
+                        password = "$System.env.ARTIFACTORY_PASSWORD" // The publisher password
+                    }
+                }
             }
 
             // Alls tests depends on junit 4
