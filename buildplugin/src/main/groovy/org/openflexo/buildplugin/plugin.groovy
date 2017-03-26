@@ -5,6 +5,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.api.tasks.javadoc.Javadoc
+import org.gradle.api.publish.maven.MavenPublication
 
 /**
  * OpenFlexo build plugin configuration
@@ -322,13 +323,15 @@ class OpenFlexoConvention {
 class OpenFlexoBuild implements Plugin<Project> {
 
     void apply(Project project) {
+
         project.extensions.create("openflexo", OpenFlexoExtension)
 
         project.convention.plugins.put("openflexo", new OpenFlexoConvention(project))
 
         project.subprojects {
-            apply plugin: 'maven'
             apply plugin: 'java'
+            apply plugin: 'maven-publish'
+            apply plugin: 'com.jfrog.artifactory'
 
             // Sets Java compile option to use UTF-8 encoding
             compileJava.options.encoding = 'UTF-8'
@@ -370,12 +373,37 @@ class OpenFlexoBuild implements Plugin<Project> {
                 maxParallelForks = 1;
             }
 
-            // Sets SNAPSHOT publication to OpenFlexo artifactory
-            uploadArchives {
-                repositories {
-                    mavenDeployer {
-                        repository(url: "https://maven.openflexo.org/artifactory/openflexo-snapshot/")
+
+            publishing {
+                publications {
+                    mavenJava(MavenPublication) {
+                        from components.java
                     }
+                }
+            }
+
+            artifactory {
+                contextUrl = 'https://maven.openflexo.org/artifactory'
+                publish {
+                    repository {
+                        repoKey = 'openflexo-snapshot' // The Artifactory repository key to publish to
+                        username = "$System.env.ARTIFACTORY_USER" // The publisher user name
+                        password = "$System.env.ARTIFACTORY_PASSWORD" // The publisher password
+                    }
+                    defaults {
+                        // Reference to Gradle publications defined in the build script.
+                        // This is how we tell the Artifactory Plugin which artifacts should be
+                        // published to Artifactory.
+                        publications('mavenJava')
+                        publishArtifacts = true
+                        // Properties to be attached to the published arti facts.
+                        //properties = ['qa.level': 'basic', 'dev.team' : 'core']
+                        // Publish generated POM files to Artifactory (true by default)
+                        publishPom = true
+                    }
+                }
+                resolve {
+                    repoKey = 'maven'
                 }
             }
         }
