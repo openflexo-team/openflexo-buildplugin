@@ -19,7 +19,7 @@ class OpenFlexoBuildConfig implements Plugin<Project> {
         project.openflexo.ginaVersion = "2.1-SNAPSHOT"
         project.openflexo.dianaVersion = "1.4-SNAPSHOT"
 
-        project.openflexo.openflexoVersion = "1.8.1-SNAPSHOT"
+        project.openflexo.openflexoVersion = "1.9.0-SNAPSHOT"
     }
 }
 
