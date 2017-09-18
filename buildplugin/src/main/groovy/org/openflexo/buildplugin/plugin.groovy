@@ -328,6 +328,17 @@ class OpenFlexoBuild implements Plugin<Project> {
 
         project.convention.plugins.put("openflexo", new OpenFlexoConvention(project))
 
+        def compile_task = project.task('compile')
+        def test_task = project.task('test')
+        def clean_task = project.task('clean')
+        
+        project.subprojects {
+        	pr -> 
+        		compile_task.dependsOn("${pr.path}:compileJava")
+        		test_task.dependsOn("${pr.path}:test")
+        		clean_task.dependsOn("${pr.path}:clean")
+		}
+        
         project.subprojects {
             apply plugin: 'java'
             apply plugin: 'maven-publish'
