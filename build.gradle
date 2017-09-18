@@ -1,5 +1,5 @@
 plugins {
-    id "com.jfrog.artifactory" version "4.4.13"
+    id "com.jfrog.artifactory" version "4.5.2"
 }
 
 subprojects {
