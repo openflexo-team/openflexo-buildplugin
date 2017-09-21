@@ -331,12 +331,14 @@ class OpenFlexoBuild implements Plugin<Project> {
         def compile_task = project.task('compile')
         def test_task = project.task('test')
         def clean_task = project.task('clean')
+        def dep_task = project.task('dep')
         
         project.subprojects {
         	pr -> 
         		compile_task.dependsOn("${pr.path}:compileJava")
         		test_task.dependsOn("${pr.path}:test")
         		clean_task.dependsOn("${pr.path}:clean")
+        		dep_task.dependsOn("${pr.path}:dependencies")
 		}
         
         project.subprojects {
