@@ -210,6 +210,10 @@ class OpenFlexoConvention {
         return "org.openflexo:ginaconnector:${project.openflexo.openflexoVersion}"
     }
 
+    String jdbcConnector() {
+        return "org.openflexo:jdbcconnector:${project.openflexo.openflexoVersion}"
+    }
+    
     String odtConnector() {
         return "org.openflexo:odtconnector:${project.openflexo.openflexoVersion}"
     }
@@ -266,6 +270,10 @@ class OpenFlexoConvention {
         return "org.openflexo:ginaconnector-ui:${project.openflexo.openflexoVersion}"
     }
 
+    String jdbcConnectorUi() {
+        return "org.openflexo:jdbcconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+    
     String odtConnectorUi() {
         return "org.openflexo:odtconnector-ui:${project.openflexo.openflexoVersion}"
     }
