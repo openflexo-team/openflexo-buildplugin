@@ -214,7 +214,7 @@ class OpenFlexoConvention {
         return "org.openflexo:jdbcconnector:${project.openflexo.openflexoVersion}"
     }
     String jdbcConnectorTest() {
-        return "org.openflexo:jdbcconnector-test:${project.openflexo.openflexoVersion}:tests
+        return "org.openflexo:jdbcconnector-test:${project.openflexo.openflexoVersion}:tests"
     }
     
     String odtConnector() {
