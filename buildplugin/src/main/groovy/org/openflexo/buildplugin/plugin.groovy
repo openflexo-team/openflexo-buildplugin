@@ -213,6 +213,9 @@ class OpenFlexoConvention {
     String jdbcConnector() {
         return "org.openflexo:jdbcconnector:${project.openflexo.openflexoVersion}"
     }
+    String jdbcConnectorTest() {
+        return "org.openflexo:jdbcconnector-test:${project.openflexo.openflexoVersion}"
+    }
     
     String odtConnector() {
         return "org.openflexo:odtconnector:${project.openflexo.openflexoVersion}"
