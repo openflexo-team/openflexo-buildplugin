@@ -13,7 +13,7 @@ buildscript {
   }
   dependencies {
     classpath group: 'org.openflexo', name: 'buildplugin', version: '+'
-    classpath group: 'org.openflexo', name: 'buildconfig', version: '1.8.1-SNAPSHOT'
+    classpath group: 'org.openflexo', name: 'buildconfig', version: '2.0.0-SNAPSHOT'
   }
 }
 
