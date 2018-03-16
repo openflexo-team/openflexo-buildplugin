@@ -38,8 +38,12 @@ class OpenFlexoConvention {
         return "org.openflexo:flexohelp:${project.openflexo.utilsVersion}"
     }
 
+    String connieUtils() {
+        return "org.openflexo:connie-utils:${project.openflexo.connieVersion}"
+    }
+
     String flexoUtils() {
-        return "org.openflexo:flexoutils:${project.openflexo.connieVersion}"
+        return "org.openflexo:flexo-utils:${project.openflexo.utilsVersion}"
     }
 
     String testUtils() {
