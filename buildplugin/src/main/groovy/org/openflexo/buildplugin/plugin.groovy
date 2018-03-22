@@ -186,10 +186,6 @@ class OpenFlexoConvention {
         return "org.openflexo:fml-rt-technologyadapter-ui:${project.openflexo.openflexoVersion}"
     }
 
-    String cvsConnector() {
-        return "org.openflexo:cvsconnector:${project.openflexo.openflexoVersion}"
-    }
-
     String docxConnector() {
         return "org.openflexo:docxconnector:${project.openflexo.openflexoVersion}"
     }
@@ -241,12 +237,28 @@ class OpenFlexoConvention {
         return "org.openflexo:powerpointconnector:${project.openflexo.openflexoVersion}"
     }
 
-    String xmlConnector() {
-        return "org.openflexo:xmlconnector:${project.openflexo.openflexoVersion}"
+    String httpConnector() {
+        return "org.openflexo:http-connector:${project.openflexo.openflexoVersion}"
     }
 
-    String cvsConnectorUi() {
-        return "org.openflexo:cvsconnector-ui:${project.openflexo.openflexoVersion}"
+    String kafkaConnector() {
+        return "org.openflexo:kafkaconnector:${project.openflexo.openflexoVersion}"
+    }
+
+    String httpConnectorUi() {
+        return "org.openflexo:http-connector-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String httpConnectorRc() {
+        return "org.openflexo:http-connector-rc:${project.openflexo.openflexoVersion}"
+    }
+
+    String kafkaConnectorUi() {
+        return "org.openflexo:kafkaconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String xmlConnector() {
+        return "org.openflexo:xmlconnector:${project.openflexo.openflexoVersion}"
     }
 
     String docxConnectorUi() {
