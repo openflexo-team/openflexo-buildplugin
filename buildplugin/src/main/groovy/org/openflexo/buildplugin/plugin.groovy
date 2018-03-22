@@ -195,7 +195,7 @@ class OpenFlexoConvention {
     }
 
     String emfConnector() {
-        return "org.openflexo:emfconnector:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:emf-ta:${project.openflexo.openflexoVersion}"
     }
 
     String excelConnector() {
@@ -204,10 +204,6 @@ class OpenFlexoConvention {
 
     String flexoDiagram() {
         return "org.openflexo:flexodiagram:${project.openflexo.openflexoVersion}"
-    }
-
-    String freePlaneConnector() {
-        return "org.openflexo:freeplaneconnector:${project.openflexo.openflexoVersion}"
     }
 
     String ginaConnector() {
@@ -238,7 +234,7 @@ class OpenFlexoConvention {
     }
 
     String pdfConnector() {
-        return "org.openflexo:pdfconnector:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:pdf-ta:${project.openflexo.openflexoVersion}"
     }
 
     String powerpointConnector() {
@@ -258,7 +254,7 @@ class OpenFlexoConvention {
     }
 
     String emfConnectorUi() {
-        return "org.openflexo:emfconnector-ui:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:emf-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String excelConnectorUi() {
@@ -267,10 +263,6 @@ class OpenFlexoConvention {
 
     String flexoDiagramUi() {
         return "org.openflexo:flexodiagram-ui:${project.openflexo.openflexoVersion}"
-    }
-
-    String freePlaneConnectorUi() {
-        return "org.openflexo:freeplaneconnector-ui:${project.openflexo.openflexoVersion}"
     }
 
     String ginaConnectorUi() {
@@ -294,7 +286,7 @@ class OpenFlexoConvention {
     }
 
     String pdfConnectorUi() {
-        return "org.openflexo:pdfconnector-ui:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:pdf-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String powerpointConnectorUi() {
