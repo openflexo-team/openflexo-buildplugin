@@ -226,11 +226,11 @@ class OpenFlexoConvention {
     }
 
     String owlConnector() {
-        return "org.openflexo:owlconnector:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:owl-ta:${project.openflexo.openflexoVersion}"
     }
 
     String owlConnectorRc() {
-        return "org.openflexo:owlconnector-rc:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:owl-ta-rc:${project.openflexo.openflexoVersion}"
     }
 
     String pdfConnector() {
@@ -282,7 +282,7 @@ class OpenFlexoConvention {
     }
 
     String owlConnectorUi() {
-        return "org.openflexo:owlconnector-ui:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:owl-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String pdfConnectorUi() {
