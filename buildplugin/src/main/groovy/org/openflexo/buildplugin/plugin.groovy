@@ -142,6 +142,10 @@ class OpenFlexoConvention {
         return "org.openflexo:flexo-foundation:${project.openflexo.openflexoVersion}"
     }
 
+    String fmlCli() {
+        return "org.openflexo:fml-cli:${project.openflexo.openflexoVersion}"
+    }
+
     String flexoFoundationTest() {
         return "org.openflexo:flexo-foundation-test:${project.openflexo.openflexoVersion}"
     }
