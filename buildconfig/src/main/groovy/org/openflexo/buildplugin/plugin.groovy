@@ -14,9 +14,9 @@ class OpenFlexoBuildConfig implements Plugin<Project> {
 
         project.openflexo.utilsVersion = "1.5-SNAPSHOT";
         project.openflexo.connieVersion = "1.5-SNAPSHOT";
-        project.openflexo.pamelaVersion = "1.4.1-SNAPSHOT";
+        project.openflexo.pamelaVersion = "1.5-SNAPSHOT";
 
-        project.openflexo.ginaVersion = "2.1.1-SNAPSHOT"
+        project.openflexo.ginaVersion = "2.2-SNAPSHOT"
         project.openflexo.dianaVersion = "1.5-SNAPSHOT"
 
         project.openflexo.openflexoVersion = "2.0.0-SNAPSHOT"
