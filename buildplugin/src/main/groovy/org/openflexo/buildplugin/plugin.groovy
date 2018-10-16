@@ -417,12 +417,12 @@ class OpenFlexoBuild implements Plugin<Project> {
                     }
                 }
             }
-
+            
             artifactory {
                 contextUrl = 'https://maven.openflexo.org/artifactory'
                 publish {
                     repository {
-                        repoKey = 'openflexo-snapshot' // The Artifactory repository key to publish to
+                        repoKey =(project.version.endsWith('-SNAPSHOT')) ? 'openflexo-snapshot' : 'openflexo-release' // The Artifactory repository key to publish to
                         username = "$System.env.ARTIFACTORY_USER" // The publisher user name
                         password = "$System.env.ARTIFACTORY_PASSWORD" // The publisher password
                     }
