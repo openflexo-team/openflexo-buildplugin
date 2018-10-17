@@ -25,6 +25,7 @@ class OpenFlexoBuildConfig implements Plugin<Project> {
 			}
 		}
 		project.version = project.version + extension
+		project.subprojects.each { Project p ->	p.version = project.version }
 
 		//println project.version
 
