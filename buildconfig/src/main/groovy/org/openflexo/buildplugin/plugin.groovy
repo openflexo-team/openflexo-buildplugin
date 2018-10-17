@@ -10,8 +10,6 @@ import org.gradle.api.Project
 class OpenFlexoBuildConfig implements Plugin<Project> {
 
     void apply(Project project) {
-        project.apply plugin: 'org.openflexo.buildplugin'
-
 		//println project.version
 		def extension = '-SNAPSHOT'
 		if (project.hasProperty('versionSuffix')) {
@@ -28,6 +26,8 @@ class OpenFlexoBuildConfig implements Plugin<Project> {
 		project.subprojects.each { Project p ->	p.version = project.version }
 
 		//println project.version
+
+        project.apply plugin: 'org.openflexo.buildplugin'
 
         project.openflexo.utilsVersion = "1.5" + extension
         project.openflexo.connieVersion = "1.5" + extension
