@@ -1,6 +1,15 @@
-plugins {
-    id "com.jfrog.artifactory" version "4.4.13"
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.7.5"
+  }
 }
+
+//plugins {
+//    id "com.jfrog.artifactory" version "4.6.2"
+//}
 
 subprojects {
     group 'org.openflexo'
@@ -28,7 +37,7 @@ subprojects {
         contextUrl = 'https://maven.openflexo.org/artifactory'
         publish {
             repository {
-                repoKey = 'openflexo-snapshot' // The Artifactory repository key to publish to
+                repoKey = 'openflexo-release' // The Artifactory repository key to publish to
                 username = "$System.env.ARTIFACTORY_USER" // The publisher user name
                 password = "$System.env.ARTIFACTORY_PASSWORD" // The publisher password
             }
@@ -51,7 +60,7 @@ subprojects {
 
     dependencies {
         compile gradleApi()
-        compile localGroovy()
+        compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.12'
     }
 
 }

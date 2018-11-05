@@ -10,16 +10,33 @@ import org.gradle.api.Project
 class OpenFlexoBuildConfig implements Plugin<Project> {
 
     void apply(Project project) {
+		//println project.version
+		def extension = '-SNAPSHOT'
+		if (project.hasProperty('versionSuffix')) {
+			extension = project.getProperty('versionSuffix')
+		} else if (project.hasProperty('isRelease')) {
+			if (project.getProperty('isRelease') == 'true' ||
+				project.getProperty('isRelease') == 'yes' ||
+				project.getProperty('isRelease') == 'oui' ||
+				project.getProperty('isRelease') == 'vrai' ) {
+				extension = ''
+			}
+		}
+		project.version = project.version + extension
+		project.subprojects.each { Project p ->	p.version = project.version }
+
+		//println project.version
+
         project.apply plugin: 'org.openflexo.buildplugin'
 
-        project.openflexo.utilsVersion = "1.4-SNAPSHOT";
-        project.openflexo.connieVersion = "1.4-SNAPSHOT";
-        project.openflexo.pamelaVersion = "1.4-SNAPSHOT";
+        project.openflexo.utilsVersion = "1.4.2" + extension
+        project.openflexo.connieVersion = "1.4.2" + extension
+        project.openflexo.pamelaVersion = "1.4.2" + extension
 
-        project.openflexo.ginaVersion = "2.1-SNAPSHOT"
-        project.openflexo.dianaVersion = "1.4-SNAPSHOT"
+        project.openflexo.ginaVersion = "2.1.2" + extension
+        project.openflexo.dianaVersion = "1.4.2" + extension
 
-        project.openflexo.openflexoVersion = "1.8.1-SNAPSHOT"
+        project.openflexo.openflexoVersion = "1.9.1" + extension
     }
 }
 

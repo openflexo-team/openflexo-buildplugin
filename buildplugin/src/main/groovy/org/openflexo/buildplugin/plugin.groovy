@@ -138,6 +138,10 @@ class OpenFlexoConvention {
         return "org.openflexo:flexo-foundation:${project.openflexo.openflexoVersion}"
     }
 
+    String fmlCli() {
+        return "org.openflexo:fml-cli:${project.openflexo.openflexoVersion}"
+    }
+
     String flexoFoundationTest() {
         return "org.openflexo:flexo-foundation-test:${project.openflexo.openflexoVersion}"
     }
@@ -210,6 +214,13 @@ class OpenFlexoConvention {
         return "org.openflexo:ginaconnector:${project.openflexo.openflexoVersion}"
     }
 
+    String jdbcConnector() {
+        return "org.openflexo:jdbcconnector:${project.openflexo.openflexoVersion}"
+    }
+    String jdbcConnectorTest() {
+        return "org.openflexo:jdbcconnector-test:${project.openflexo.openflexoVersion}"
+    }
+    
     String odtConnector() {
         return "org.openflexo:odtconnector:${project.openflexo.openflexoVersion}"
     }
@@ -266,6 +277,10 @@ class OpenFlexoConvention {
         return "org.openflexo:ginaconnector-ui:${project.openflexo.openflexoVersion}"
     }
 
+    String jdbcConnectorUi() {
+        return "org.openflexo:jdbcconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+    
     String odtConnectorUi() {
         return "org.openflexo:odtconnector-ui:${project.openflexo.openflexoVersion}"
     }
@@ -328,6 +343,19 @@ class OpenFlexoBuild implements Plugin<Project> {
 
         project.convention.plugins.put("openflexo", new OpenFlexoConvention(project))
 
+        def compile_task = project.task('compile')
+        def test_task = project.task('test')
+        def clean_task = project.task('clean')
+        def dep_task = project.task('dep')
+        
+        project.subprojects {
+        	pr -> 
+        		compile_task.dependsOn("${pr.path}:compileJava")
+        		test_task.dependsOn("${pr.path}:test")
+        		clean_task.dependsOn("${pr.path}:clean")
+        		dep_task.dependsOn("${pr.path}:dependencies")
+		}
+        
         project.subprojects {
             apply plugin: 'java'
             apply plugin: 'maven-publish'
@@ -381,12 +409,12 @@ class OpenFlexoBuild implements Plugin<Project> {
                     }
                 }
             }
-
+            
             artifactory {
                 contextUrl = 'https://maven.openflexo.org/artifactory'
                 publish {
                     repository {
-                        repoKey = 'openflexo-snapshot' // The Artifactory repository key to publish to
+                        repoKey =(project.version.endsWith('-SNAPSHOT')) ? 'openflexo-snapshot' : 'openflexo-release' // The Artifactory repository key to publish to
                         username = "$System.env.ARTIFACTORY_USER" // The publisher user name
                         password = "$System.env.ARTIFACTORY_PASSWORD" // The publisher password
                     }
