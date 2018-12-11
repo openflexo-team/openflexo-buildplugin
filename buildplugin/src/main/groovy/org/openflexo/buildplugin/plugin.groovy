@@ -216,7 +216,7 @@ class OpenFlexoConvention {
     String jdbcConnectorTest() {
         return "org.openflexo:jdbcconnector-test:${project.openflexo.openflexoVersion}"
     }
-    
+
     String odtConnector() {
         return "org.openflexo:odtconnector:${project.openflexo.openflexoVersion}"
     }
@@ -288,7 +288,7 @@ class OpenFlexoConvention {
     String jdbcConnectorUi() {
         return "org.openflexo:jdbcconnector-ui:${project.openflexo.openflexoVersion}"
     }
-    
+
     String odtConnectorUi() {
         return "org.openflexo:odtconnector-ui:${project.openflexo.openflexoVersion}"
     }
@@ -355,15 +355,15 @@ class OpenFlexoBuild implements Plugin<Project> {
         def test_task = project.task('test')
         def clean_task = project.task('clean')
         def dep_task = project.task('dep')
-        
+
         project.subprojects {
-        	pr -> 
+        	pr ->
         		compile_task.dependsOn("${pr.path}:compileJava")
         		test_task.dependsOn("${pr.path}:test")
         		clean_task.dependsOn("${pr.path}:clean")
         		dep_task.dependsOn("${pr.path}:dependencies")
 		}
-        
+
         project.subprojects {
             apply plugin: 'java'
             apply plugin: 'maven-publish'
@@ -417,7 +417,7 @@ class OpenFlexoBuild implements Plugin<Project> {
                     }
                 }
             }
-            
+
             artifactory {
                 contextUrl = 'https://maven.openflexo.org/artifactory'
                 publish {
