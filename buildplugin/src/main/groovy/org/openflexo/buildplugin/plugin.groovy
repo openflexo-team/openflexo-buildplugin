@@ -46,6 +46,10 @@ class OpenFlexoConvention {
         return "org.openflexo:flexo-utils:${project.openflexo.utilsVersion}"
     }
 
+    String flexoP2PP() {
+        return "org.openflexo:flexo-p2pp:${project.openflexo.utilsVersion}"
+    }
+
     String testUtils() {
         return "org.openflexo:testutils:${project.openflexo.connieVersion}"
     }
