@@ -206,8 +206,8 @@ class OpenFlexoConvention {
         return "org.openflexo:excelconnector:${project.openflexo.openflexoVersion}"
     }
 
-    String flexoDiagram() {
-        return "org.openflexo:flexodiagram:${project.openflexo.openflexoVersion}"
+    String diagramConnector() {
+        return "org.openflexo:diagram-ta:${project.openflexo.openflexoVersion}"
     }
 
     String ginaConnector() {
@@ -281,8 +281,8 @@ class OpenFlexoConvention {
         return "org.openflexo:excelconnector-ui:${project.openflexo.openflexoVersion}"
     }
 
-    String flexoDiagramUi() {
-        return "org.openflexo:flexodiagram-ui:${project.openflexo.openflexoVersion}"
+    String diagramConnectorUi() {
+        return "org.openflexo:diagram-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String ginaConnectorUi() {
