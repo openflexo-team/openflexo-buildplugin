@@ -29,14 +29,14 @@ class OpenFlexoBuildConfig implements Plugin<Project> {
 
         project.apply plugin: 'org.openflexo.buildplugin'
 
-        project.openflexo.utilsVersion = "1.5" + extension
-        project.openflexo.connieVersion = "1.5" + extension
-        project.openflexo.pamelaVersion = "1.5" + extension
+        project.openflexo.utilsVersion = "1.6" + extension
+        project.openflexo.connieVersion = "1.6" + extension
+        project.openflexo.pamelaVersion = "1.6" + extension
 
-        project.openflexo.ginaVersion = "2.2" + extension
-        project.openflexo.dianaVersion = "1.5" + extension
+        project.openflexo.ginaVersion = "2.3" + extension
+        project.openflexo.dianaVersion = "1.6" + extension
 
-        project.openflexo.openflexoVersion = "2.0.0" + extension
+        project.openflexo.openflexoVersion = "2.1.0" + extension
     }
 }
 
