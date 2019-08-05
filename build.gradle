@@ -3,7 +3,7 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.7.5"
+    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
   }
 }
 
@@ -60,7 +60,6 @@ subprojects {
 
     dependencies {
         compile gradleApi()
-        compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.4'
     }
 
 }
