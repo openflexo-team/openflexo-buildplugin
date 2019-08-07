@@ -390,9 +390,9 @@ class OpenFlexoBuild implements Plugin<Project> {
                 }
             }
 
-            // Alls tests depends on junit 4
+            // Alls tests depends on junit 5
             dependencies {
-                testCompile group: 'junit', name: 'junit', version: '4.+'
+                testCompile('org.junit.jupiter:junit-jupiter:5.5.1')
             }
 
             if (JavaVersion.current().isJava8Compatible()) {
