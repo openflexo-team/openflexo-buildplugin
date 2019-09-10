@@ -3,6 +3,7 @@ package org.openflexo.buildplugin
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.api.tasks.javadoc.Javadoc
 import org.gradle.api.publish.maven.MavenPublication
@@ -355,19 +356,45 @@ class OpenFlexoBuild implements Plugin<Project> {
 
         project.convention.plugins.put("openflexo", new OpenFlexoConvention(project))
 
-        def compile_task = project.task('compile')
-        def test_task = project.task('test')
-        def clean_task = project.task('clean')
-        def dep_task = project.task('dep')
+        def containerProject = project.getTasks()
 
-        project.subprojects {
-        	pr ->
-        		compile_task.dependsOn("${pr.path}:compileJava")
-        		test_task.dependsOn("${pr.path}:test")
-        		clean_task.dependsOn("${pr.path}:clean")
-        		dep_task.dependsOn("${pr.path}:dependencies")
-		}
+        def compileTask = containerProject.create('compile', {
+            description = "The global compile task of ${project.name}."
+            group = 'Build'
+        })
+        def testTask = containerProject.create('test', {
+            description = "The global nou UI test task of ${project.name}."
+            group = 'Verification'
+        })
+        def testAllTask = containerProject.create('testAll', {
+            description = "The global UI test task of ${project.name}."
+            group = 'Verification'
+        })
+        def cleanTask = containerProject.create('clean', {
+            description = "The global clean task of ${project.name}."
+            group = 'Cleaning'
+        })
+        def depTask = containerProject.create('dep', {
+            description = "The global dep task of ${project.name}."
+            group = 'Help'
+        })
+        def tasksAllTask = containerProject.create('tasksAll', {
+            description = "The global tasks task of ${project.name}."
+            group = 'Help'
+        })
 
+        project.allprojects {
+            group='org.openflexo'
+        }
+
+        project.subprojects { pr ->
+            compileTask.dependsOn("${pr.path}:compileJava")
+            testTask.dependsOn("${pr.path}:test")
+            testAllTask.dependsOn("${pr.path}:testAll")
+            cleanTask.dependsOn("${pr.path}:clean")
+            depTask.dependsOn("${pr.path}:dependencies")
+            tasksAllTask.dependsOn("${pr.path}:tasks")
+        }
         project.subprojects {
             apply plugin: 'java'
             apply plugin: 'maven-publish'
@@ -390,10 +417,67 @@ class OpenFlexoBuild implements Plugin<Project> {
                 }
             }
 
-            // Alls tests depends on junit 4
+            // Tests configuration
+            // Alls tests depends on junit 4 and testUtils
             dependencies {
                 testCompile group: 'junit', name: 'junit', version: '4.+'
+                testCompile testUtils()
             }
+
+            def container = getTasks()
+
+            def print_result = { desc, result ->
+                if (!desc.parent && result.testCount > 0) { // will match the outermost suite
+                    def output = "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+                    def startItem = '|  ', endItem = '  |'
+                    def repeatLength = startItem.length() + output.length() + endItem.length()
+                    println('\n' + ('-' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('-' * repeatLength))
+                }
+            }
+
+            def uiTest = container.create('uiTest', Test, {
+                description = "UI test task."
+                group = 'Verification'
+                ignoreFailures = true
+                maxParallelForks = 1;
+                useJUnit {
+                    includeCategories 'org.openflexo.test.UITest'
+                }
+                testLogging {
+                    afterSuite print_result
+                }
+             })
+
+            def test = container.getByName('test')
+            test.configure {
+                ignoreFailures = true
+                jvmArgs += ["-Djava.awt.headless=true"]
+                maxHeapSize = "3g"
+                maxParallelForks = 4;
+                useJUnit {
+                    excludeCategories 'org.openflexo.test.UITest'
+                }
+                testLogging {
+                    afterSuite print_result
+                }
+            }
+
+            def testAll = container.create('testAll', {
+                description = "Executing all test tasks."
+                group = 'Verification'
+            })
+            testAll.dependsOn(uiTest)
+            testAll.dependsOn(test)
+
+
+            // Jacoco
+            apply plugin: 'jacoco'
+            apply plugin: 'project-report'
+
+            htmlDependencyReport {
+                projects = project.allprojects
+            }
+
 
             if (JavaVersion.current().isJava8Compatible()) {
                 allprojects {
@@ -407,12 +491,6 @@ class OpenFlexoBuild implements Plugin<Project> {
                 // Check for updates every build
                 resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
             }
-
-            test {
-                ignoreFailures = true
-                maxParallelForks = 1;
-            }
-
 
             publishing {
                 publications {
@@ -428,7 +506,7 @@ class OpenFlexoBuild implements Plugin<Project> {
                     repository {
                     	def repo = (project.version.endsWith('-SNAPSHOT')) ? 'openflexo-snapshot' : 'openflexo-release'
                      	if (project.hasProperty('java10')) {
-                     	  repo = 'openflexo-java10'     
+                     	  repo = 'openflexo-java10'
                      	}
 	                	repoKey = repo// The Artifactory repository key to publish to
                         username = "$System.env.ARTIFACTORY_USER" // The publisher user name
@@ -451,18 +529,6 @@ class OpenFlexoBuild implements Plugin<Project> {
                 }
             }
         }
-
-        project.allprojects {
-            group='org.openflexo'
-
-            apply plugin: 'jacoco'
-            apply plugin: 'project-report'
-
-            htmlDependencyReport {
-                projects = project.allprojects
-            }
-        }
-
     }
 }
 
