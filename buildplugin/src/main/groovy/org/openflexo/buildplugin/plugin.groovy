@@ -440,6 +440,7 @@ class OpenFlexoBuild implements Plugin<Project> {
                 group = 'Verification'
                 ignoreFailures = true
                 maxParallelForks = 1;
+                maxHeapSize = "3g"
                 useJUnit {
                     includeCategories 'org.openflexo.test.UITest'
                 }
