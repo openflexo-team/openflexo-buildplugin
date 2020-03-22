@@ -1,5 +1,5 @@
 version '0.2'
 
 dependencies {
-   compile "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
+    implementation 'org.jfrog.buildinfo:build-info-extractor-gradle:4.14.1'
 }
