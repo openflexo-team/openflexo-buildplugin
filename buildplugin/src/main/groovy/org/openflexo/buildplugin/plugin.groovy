@@ -341,6 +341,20 @@ class OpenFlexoConvention {
     String openflexo(String name) {
         return "org.openflexo:$name:${project.openflexo.openflexoVersion}"
     }
+
+    String obp2Connector() {
+        return "org.openflexo:obp2-ta:${project.openflexo.openflexoVersion}"
+    }
+
+    String obp2ConnectorRc() {
+        return "org.openflexo:obp2-ta-rc:${project.openflexo.openflexoVersion}"
+    }
+
+    String obp2ConnectorUi() {
+        return "org.openflexo:obp2-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+
+
 }
 
 /**
