@@ -31,7 +31,7 @@ class OpenFlexoBuildConfig implements Plugin<Project> {
 
         project.openflexo.utilsVersion = "1.5.1" + extension
         project.openflexo.connieVersion = "1.5.1" + extension
-        project.openflexo.pamelaVersion = "1.5.1" + extension
+        project.openflexo.pamelaVersion = "1.6" + extension
 
         project.openflexo.ginaVersion = "2.2.1" + extension
         project.openflexo.dianaVersion = "1.5.1" + extension
