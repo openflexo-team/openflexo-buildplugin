@@ -1,32 +1,32 @@
 openflexo-buildplugin
 =====================
 
-This project defines a Gradle plugin for OpenFlexo projects. 
+This project defines a Gradle plugin for OpenFlexo projects.
 It declares all needed plugins and adds methods to simplifies dependencies declaration.
 
-Here an example to use the plugin: 
+Here an example to use the plugin:
 ```gradle
 buildscript {
   repositories {
-  
+
     maven { url uri('https://maven.openflexo.org/artifactory/openflexo-release/') }
   }
   dependencies {
-    classpath group: 'org.openflexo', name: 'buildplugin', version: '0.2-SNAPSHOT'
-    classpath group: 'org.openflexo', name: 'buildconfig', version: '2.0.0-SNAPSHOT'
+    classpath group: 'org.openflexo', name: 'buildplugin', version: '0.3'
+    classpath group: 'org.openflexo', name: 'buildconfig', version: '2.1.0'
   }
 }
 
 apply plugin: 'org.openflexo.buildconfig'
 
-openflexo.version = "1.4-SNAPSHOT"
+openflexo.version = "1.X"
 
 dependencies {
-  compile flexoUtils()
-  compile connie()
-  compile pamela()
+  implementation flexoUtils()
+  implementation connie()
+  implementation pamela()
 
-  testCompile testUtils()
+  testImplementation testUtils()
 }
 ```
 
@@ -39,4 +39,3 @@ The property `openflexo.version` defines the current project version used by the
 You can also change the version for each component like so:
 - `openflexo.connieVersion = 1.3`,
 - `openflexo.dianaVersion = 2.0` ...
-
