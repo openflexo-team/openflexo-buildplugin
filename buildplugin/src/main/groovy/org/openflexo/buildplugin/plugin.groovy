@@ -396,7 +396,7 @@ class OpenFlexoBuild implements Plugin<Project> {
             tasksAllTask.dependsOn("${pr.path}:tasks")
         }
         project.subprojects {
-            apply plugin: 'java'
+            apply plugin: 'java-library'
             apply plugin: 'maven-publish'
             apply plugin: 'com.jfrog.artifactory'
 
@@ -420,7 +420,7 @@ class OpenFlexoBuild implements Plugin<Project> {
             // Tests configuration
             // Alls tests depends on junit 4 and testUtils
             dependencies {
-                testCompile group: 'junit', name: 'junit', version: '4.+'
+                testCompile group: 'junit', name: 'junit', version: '4.13'
                 testCompile testUtils()
             }
 
