@@ -414,6 +414,7 @@ class OpenFlexoBuild implements Plugin<Project> {
             // Tests configuration
             // Alls tests depends on junit 4 and testUtils
             dependencies {
+                println("====> [${project.name}.]")
                 if (project.name != 'connie')
                     testImplementation testUtils()
                 else
