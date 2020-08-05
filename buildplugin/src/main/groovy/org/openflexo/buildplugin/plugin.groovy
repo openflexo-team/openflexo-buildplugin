@@ -414,8 +414,10 @@ class OpenFlexoBuild implements Plugin<Project> {
             // Tests configuration
             // Alls tests depends on junit 4 and testUtils
             dependencies {
-                testImplementation group: 'junit', name: 'junit', version: '4.13'
-                testImplementation testUtils()
+                if (project.name != 'connie')
+                    testImplementation testUtils()
+                else
+                    testImplementation project.project(':testutils')
             }
 
             def container = getTasks()
