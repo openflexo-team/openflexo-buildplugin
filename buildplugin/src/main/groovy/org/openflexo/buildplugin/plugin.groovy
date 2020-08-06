@@ -416,7 +416,7 @@ class OpenFlexoBuild implements Plugin<Project> {
             dependencies {
                 println("====> [${project.name}]")
                 if (project.name != 'connie') {
-                    println("====> ${testUtils()} and [${project.openflexo.connieVersion}] and [${project.connieVersion}]")
+                    println("====> ${testUtils()} and [${project.openflexo.connieVersion}] and [${project.ext.connieVersion}]")
                     testImplementation testUtils()
                 } else
                     testImplementation project.project(':testutils')

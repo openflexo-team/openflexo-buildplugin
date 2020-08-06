@@ -27,7 +27,7 @@ class OpenFlexoBuildConfig implements Plugin<Project> {
 
 		//println project.version
 
-        project.connieVersion = "1.5.1" + extension
+        project.ext.connieVersion = "1.5.1" + extension
         project.apply plugin: 'org.openflexo.buildplugin'
 
         project.openflexo.utilsVersion = "1.5.1" + extension
