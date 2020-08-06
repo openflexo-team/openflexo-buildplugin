@@ -27,6 +27,8 @@ class OpenFlexoBuildConfig implements Plugin<Project> {
 
 		//println project.version
 
+        // Beware connie version is used by the plugin to add the dependency to testutils
+        // In a future version, we could put all versions in ext and use them in the plugin
         project.ext.connieVersion = "1.5.1" + extension
         project.apply plugin: 'org.openflexo.buildplugin'
 
