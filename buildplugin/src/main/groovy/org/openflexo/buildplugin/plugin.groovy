@@ -414,10 +414,9 @@ class OpenFlexoBuild implements Plugin<Project> {
             // Tests configuration
             // Alls tests depends on junit 4 and testUtils
             dependencies {
-                println("====> [${project.name}]")
+                //println("====> [${project.name}]")
                 if (project.name != 'connie') {
-                    println("====> ${testUtils()} and [${project.openflexo.connieVersion}] and [${project.ext.connieVersion}]")
-                    testImplementation testUtils()
+                    testImplementation "org.openflexo:testutils:${project.ext.connieVersion}"
                 } else
                     testImplementation project.project(':testutils')
             }
