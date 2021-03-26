@@ -1,4 +1,4 @@
-version '0.3'
+version '0.2'
 
 dependencies {
     implementation 'org.jfrog.buildinfo:build-info-extractor-gradle:4.14.1'
