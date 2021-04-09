@@ -59,6 +59,14 @@ class OpenFlexoConvention {
         return "org.openflexo:connie-core:${project.openflexo.connieVersion}"
     }
 
+    String connieDEL() {
+        return "org.openflexo:default-expression-language:${project.openflexo.connieVersion}"
+    }
+
+    String connieJava() {
+        return "org.openflexo:java-expression-language:${project.openflexo.connieVersion}"
+    }
+
     String pamela() {
         return "org.openflexo:pamela-core:${project.openflexo.pamelaVersion}"
     }
