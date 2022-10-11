@@ -7,10 +7,6 @@ buildscript {
   }
 }
 
-//plugins {
-//    id "com.jfrog.artifactory" version "4.6.2"
-//}
-
 subprojects {
     group 'org.openflexo'
 

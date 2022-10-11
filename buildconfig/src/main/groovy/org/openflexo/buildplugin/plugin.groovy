@@ -39,7 +39,7 @@ class OpenFlexoBuildConfig implements Plugin<Project> {
         project.openflexo.ginaVersion = "2.3" + extension
         project.openflexo.dianaVersion = "1.6" + extension
 
-        project.openflexo.openflexoVersion = "2.1.0" + extension
+        project.openflexo.openflexoVersion = "2.99" + extension
     }
 }
 
