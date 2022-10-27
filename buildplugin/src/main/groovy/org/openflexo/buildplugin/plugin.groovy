@@ -204,7 +204,7 @@ class OpenFlexoConvention {
     }
 
     String docxConnector() {
-        return "org.openflexo:docxconnector:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:docx-ta:${project.openflexo.openflexoVersion}"
     }
 
     String emfConnector() {
@@ -279,7 +279,7 @@ class OpenFlexoConvention {
     }
 
     String docxConnectorUi() {
-        return "org.openflexo:docxconnector-ui:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:docx-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String emfConnectorUi() {
