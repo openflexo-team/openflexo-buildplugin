@@ -212,7 +212,7 @@ class OpenFlexoConvention {
     }
 
     String excelConnector() {
-        return "org.openflexo:excelconnector:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:xlsx-ta:${project.openflexo.openflexoVersion}"
     }
 
     String diagramConnector() {
@@ -251,7 +251,7 @@ class OpenFlexoConvention {
     }
 
     String powerpointConnector() {
-        return "org.openflexo:powerpointconnector:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:pptx-ta:${project.openflexo.openflexoVersion}"
     }
 
     String httpConnector() {
@@ -287,7 +287,7 @@ class OpenFlexoConvention {
     }
 
     String excelConnectorUi() {
-        return "org.openflexo:excelconnector-ui:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:xlsx-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String diagramConnectorUi() {
@@ -319,7 +319,7 @@ class OpenFlexoConvention {
     }
 
     String powerpointConnectorUi() {
-        return "org.openflexo:powerpointconnector-ui:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:pptx-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String xmlConnectorUi() {
