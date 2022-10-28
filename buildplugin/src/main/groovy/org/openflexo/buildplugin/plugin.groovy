@@ -220,7 +220,7 @@ class OpenFlexoConvention {
     }
 
     String ginaConnector() {
-        return "org.openflexo:ginaconnector:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:gina-ta:${project.openflexo.openflexoVersion}"
     }
 
     String jdbcConnector() {
@@ -231,11 +231,11 @@ class OpenFlexoConvention {
     }
 
     String odtConnector() {
-        return "org.openflexo:odtconnector:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:odt-ta:${project.openflexo.openflexoVersion}"
     }
 
     String oslcConnector() {
-        return "org.openflexo:oslcconnector:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:oslc-ta:${project.openflexo.openflexoVersion}"
     }
 
     String owlConnector() {
@@ -275,7 +275,7 @@ class OpenFlexoConvention {
     }
 
     String xmlConnector() {
-        return "org.openflexo:xmlconnector:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:xml-ta:${project.openflexo.openflexoVersion}"
     }
 
     String docxConnectorUi() {
@@ -295,7 +295,7 @@ class OpenFlexoConvention {
     }
 
     String ginaConnectorUi() {
-        return "org.openflexo:ginaconnector-ui:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:gina-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String jdbcConnectorUi() {
@@ -303,11 +303,11 @@ class OpenFlexoConvention {
     }
 
     String odtConnectorUi() {
-        return "org.openflexo:odtconnector-ui:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:odt-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String oslcConnectorUi() {
-        return "org.openflexo:oslcconnector-ui:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:oslc-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String owlConnectorUi() {
@@ -323,7 +323,7 @@ class OpenFlexoConvention {
     }
 
     String xmlConnectorUi() {
-        return "org.openflexo:xmlconnector-ui:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:xml-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String openflexo(String name) {
