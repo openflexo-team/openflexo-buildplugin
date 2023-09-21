@@ -531,9 +531,10 @@ class OpenFlexoBuild implements Plugin<Project> {
                         publishPom = true
                     }
                 }
-                resolve {
-                    repoKey = 'maven'
-                }
+             // Does not work anymore with gradle version 6.8.1
+             //   resolve {
+             //      repoKey = 'maven'
+             //  }
             }
         }
     }
