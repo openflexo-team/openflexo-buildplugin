@@ -1,5 +1,5 @@
 version '0.3'
 
 dependencies {
-    implementation 'org.jfrog.buildinfo:build-info-extractor-gradle:4.14.1'
+    implementation 'org.jfrog.buildinfo:build-info-extractor-gradle:5.2.0'
 }
