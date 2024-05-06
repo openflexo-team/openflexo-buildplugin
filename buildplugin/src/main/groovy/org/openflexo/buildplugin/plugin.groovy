@@ -266,6 +266,10 @@ class OpenFlexoConvention {
         return "org.openflexo:kafkaconnector:${project.openflexo.openflexoVersion}"
     }
 
+    String javaConnector() {
+        return "org.openflexo:java-ta:${project.openflexo.openflexoVersion}"
+    }
+
     String httpConnectorUi() {
         return "org.openflexo:http-connector-ui:${project.openflexo.openflexoVersion}"
     }
@@ -276,6 +280,10 @@ class OpenFlexoConvention {
 
     String kafkaConnectorUi() {
         return "org.openflexo:kafkaconnector-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String javaConnectorUi() {
+        return "org.openflexo:java-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String xmlConnector() {
