@@ -397,6 +397,64 @@ class OpenFlexoBuild implements Plugin<Project> {
             group = 'Help'
         })
 
+        def doc_version = project.version
+        doc_version = doc_version - '-SNAPSHOT'
+
+        String projRepo   = (new File(".").absolutePath) + './' + project.name + '_doc/'
+        String docRepo   = projRepo + 'openflexo-documentation/'
+        String docPath = docRepo + project.name + '/' + doc_version
+        String branch = 'test'
+
+        containerProject.register('buildWebsite', {
+            description = "The task for building website."
+            group = 'Documentation'
+            doLast {
+                // println '### Build Started for '+ project.name + ' ### \n'
+                if (!new File(projRepo).exists()) {
+                    project.exec {
+                        commandLine 'mkdir', '-p', projRepo
+                    }
+                }
+                if (!new File(docRepo).exists()) {
+                    project.exec {
+                        workingDir projRepo
+                        commandLine 'git', 'clone', 'git@github.com:openflexo-team/openflexo-documentation.git', '--depth', 1, '--branch', branch//, '--quiet'
+                    }
+                }
+                project.exec {
+                    commandLine 'mkdir', '-p', docPath
+                }
+                project.exec {
+                    workingDir docRepo
+                    commandLine 'git', 'pull', 'origin', branch, '--no-rebase', '--quiet'
+                }
+                project.exec {
+                    ignoreExitValue true
+                    commandLine 'cp', '-r', 'src/site/markdown/.', docPath
+                }
+
+                project.subprojects { pr ->
+                    project.exec {
+                        ignoreExitValue true
+                        commandLine 'cp', '-r', pr.name + '/src/site/markdown/.', docPath + '/' + pr.name
+                    }
+                }
+                project.exec {
+                    workingDir docRepo
+                    commandLine 'git', 'add', docPath
+                }
+                project.exec {
+                    ignoreExitValue true
+                    workingDir docRepo
+                    commandLine 'git', 'commit', '-m', '"gradle updating docs"'
+                }
+                project.exec {
+                    workingDir docRepo
+                    commandLine 'git', 'push', '--quiet'
+                }
+            }
+        })
+
         project.allprojects {
             group='org.openflexo'
         }
@@ -409,6 +467,7 @@ class OpenFlexoBuild implements Plugin<Project> {
             depTask.dependsOn("${pr.path}:dependencies")
             tasksAllTask.dependsOn("${pr.path}:tasks")
         }
+
         project.subprojects {
             apply plugin: 'java-library'
             apply plugin: 'maven-publish'
@@ -487,7 +546,6 @@ class OpenFlexoBuild implements Plugin<Project> {
             })
             testAll.dependsOn(uiTest)
             testAll.dependsOn(test)
-
 
             // Jacoco
             apply plugin: 'jacoco'
