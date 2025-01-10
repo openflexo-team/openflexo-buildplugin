@@ -270,6 +270,10 @@ class OpenFlexoConvention {
         return "org.openflexo:java-ta:${project.openflexo.openflexoVersion}"
     }
 
+    String opcUaConnector() {
+        return "org.openflexo:opc-ua-ta:${project.openflexo.openflexoVersion}"
+    }
+
     String httpConnectorUi() {
         return "org.openflexo:http-connector-ui:${project.openflexo.openflexoVersion}"
     }
@@ -284,6 +288,10 @@ class OpenFlexoConvention {
 
     String javaConnectorUi() {
         return "org.openflexo:java-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String opcUaConnectorUi() {
+        return "org.openflexo:opc-ua-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String xmlConnector() {
