@@ -489,7 +489,12 @@ class OpenFlexoBuild implements Plugin<Project> {
             compileJava.options.encoding = 'UTF-8'
             tasks.withType(JavaCompile) {
                 options.encoding = 'UTF-8'
-            }
+     			options.compilerArgs += [
+        			'--module-path', classpath.asPath
+    			]
+   				// Important : empty classpath, otherwise it is duplicated
+    			classpath = files()
+           	}
 
             // Declares repositories to refer to
             repositories {
