@@ -183,6 +183,10 @@ class OpenFlexoConvention {
         return "org.openflexo:flexo-test-resources:${project.openflexo.openflexoVersion}"
     }
 
+    String bugReporting() {
+        return "org.openflexo:bug-reporting:${project.openflexo.openflexoVersion}"
+    }
+
     String flexoUi() {
         return "org.openflexo:flexo-ui:${project.openflexo.openflexoVersion}"
     }
@@ -366,7 +370,50 @@ class OpenFlexoConvention {
         return "org.openflexo:obp2-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
+    String csvConnector() {
+        return "org.openflexo:csv-ta:${project.openflexo.openflexoVersion}"
+    }
 
+    String csvConnectorUi() {
+        return "org.openflexo:csv-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+    
+    String mcpConnector() {
+        return "org.openflexo:mcp-ta:${project.openflexo.openflexoVersion}"
+    }
+
+    String mcpConnectorUi() {
+        return "org.openflexo:mcp-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String restConnector() {
+        return "org.openflexo:rest-ta:${project.openflexo.openflexoVersion}"
+    }
+
+    String restConnectorRc() {
+        return "org.openflexo:rest-ta-rc:${project.openflexo.openflexoVersion}"
+    }
+
+    String restConnectorUi() {
+        return "org.openflexo:rest-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String markdownConnector() {
+        return "org.openflexo:markdown-ta:${project.openflexo.openflexoVersion}"
+    }
+
+    String markdownConnectorUi() {
+        return "org.openflexo:markdown-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String jsonConnector() {
+        return "org.openflexo:json-ta:${project.openflexo.openflexoVersion}"
+    }
+
+    String jsonConnectorUi() {
+        return "org.openflexo:json-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+ 
 }
 
 /**
