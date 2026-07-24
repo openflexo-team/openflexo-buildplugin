@@ -236,10 +236,10 @@ class OpenFlexoConvention {
     }
 
     String jdbcConnector() {
-        return "org.openflexo:jdbcconnector:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:jdbc-ta:${project.openflexo.openflexoVersion}"
     }
     String jdbcConnectorTest() {
-        return "org.openflexo:jdbcconnector-test:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:jdbc-ta-test:${project.openflexo.openflexoVersion}"
     }
 
     String odtConnector() {
@@ -327,7 +327,7 @@ class OpenFlexoConvention {
     }
 
     String jdbcConnectorUi() {
-        return "org.openflexo:jdbcconnector-ui:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:jdbc-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String odtConnectorUi() {
