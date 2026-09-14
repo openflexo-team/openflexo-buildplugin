@@ -271,7 +271,7 @@ class OpenFlexoConvention {
     }
 
     String kafkaConnector() {
-        return "org.openflexo:kafkaconnector:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:kafka-ta:${project.openflexo.openflexoVersion}"
     }
 
     String javaConnector() {
@@ -291,7 +291,7 @@ class OpenFlexoConvention {
     }
 
     String kafkaConnectorUi() {
-        return "org.openflexo:kafkaconnector-ui:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:kafka-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String javaConnectorUi() {
