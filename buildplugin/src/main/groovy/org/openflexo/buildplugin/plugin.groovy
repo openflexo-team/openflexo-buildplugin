@@ -167,6 +167,14 @@ class OpenFlexoConvention {
         return "org.openflexo:fml-cli-test:${project.openflexo.openflexoVersion}"
     }
 
+    String fmlDiagrammingExtension() {
+        return "org.openflexo:fml-diagramming-extension:${project.openflexo.openflexoVersion}"
+    }
+
+    String fmlGinaExtension() {
+        return "org.openflexo:fml-gina-extension:${project.openflexo.openflexoVersion}"
+    }
+
     String flexoFoundationTest() {
         return "org.openflexo:flexo-foundation-test:${project.openflexo.openflexoVersion}"
     }
@@ -412,6 +420,30 @@ class OpenFlexoConvention {
 
     String jsonConnectorUi() {
         return "org.openflexo:json-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String xxConnector() {
+        return "org.openflexo:xx-ta:${project.openflexo.openflexoVersion}"
+    }
+
+    String xxConnectorUi() {
+        return "org.openflexo:xx-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String dslConnector() {
+        return "org.openflexo:dsl-ta:${project.openflexo.openflexoVersion}"
+    }
+
+    String dslConnectorUi() {
+        return "org.openflexo:dsl-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String rhapsodyConnector() {
+        return "org.openflexo:rhapsody-ta:${project.openflexo.openflexoVersion}"
+    }
+
+    String rhapsodyConnectorUi() {
+        return "org.openflexo:rhapsody-ta-ui:${project.openflexo.openflexoVersion}"
     }
  
 }
