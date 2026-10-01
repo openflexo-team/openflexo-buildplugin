@@ -135,6 +135,10 @@ class OpenFlexoConvention {
         return "org.openflexo:diana-geom:${project.openflexo.dianaVersion}"
     }
 
+    String dianaPalettes() {
+        return "org.openflexo:diana-palettes:${project.openflexo.dianaVersion}"
+    }
+
     String dianaPptEditor() {
         return "org.openflexo:diana-ppt-editor:${project.openflexo.dianaVersion}"
     }
