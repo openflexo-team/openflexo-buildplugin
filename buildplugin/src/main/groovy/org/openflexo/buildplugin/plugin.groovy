@@ -135,6 +135,10 @@ class OpenFlexoConvention {
         return "org.openflexo:diana-geom:${project.openflexo.dianaVersion}"
     }
 
+    String dianaPalettes() {
+        return "org.openflexo:diana-palettes:${project.openflexo.dianaVersion}"
+    }
+
     String dianaPptEditor() {
         return "org.openflexo:diana-ppt-editor:${project.openflexo.dianaVersion}"
     }
@@ -167,6 +171,14 @@ class OpenFlexoConvention {
         return "org.openflexo:fml-cli-test:${project.openflexo.openflexoVersion}"
     }
 
+    String fmlDiagrammingExtension() {
+        return "org.openflexo:fml-diagramming-extension:${project.openflexo.openflexoVersion}"
+    }
+
+    String fmlGinaExtension() {
+        return "org.openflexo:fml-gina-extension:${project.openflexo.openflexoVersion}"
+    }
+
     String flexoFoundationTest() {
         return "org.openflexo:flexo-foundation-test:${project.openflexo.openflexoVersion}"
     }
@@ -181,6 +193,10 @@ class OpenFlexoConvention {
 
     String flexoTestResources() {
         return "org.openflexo:flexo-test-resources:${project.openflexo.openflexoVersion}"
+    }
+
+    String bugReporting() {
+        return "org.openflexo:bug-reporting:${project.openflexo.openflexoVersion}"
     }
 
     String flexoUi() {
@@ -232,10 +248,10 @@ class OpenFlexoConvention {
     }
 
     String jdbcConnector() {
-        return "org.openflexo:jdbcconnector:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:jdbc-ta:${project.openflexo.openflexoVersion}"
     }
     String jdbcConnectorTest() {
-        return "org.openflexo:jdbcconnector-test:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:jdbc-ta-test:${project.openflexo.openflexoVersion}"
     }
 
     String odtConnector() {
@@ -267,7 +283,7 @@ class OpenFlexoConvention {
     }
 
     String kafkaConnector() {
-        return "org.openflexo:kafkaconnector:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:kafka-ta:${project.openflexo.openflexoVersion}"
     }
 
     String javaConnector() {
@@ -287,7 +303,7 @@ class OpenFlexoConvention {
     }
 
     String kafkaConnectorUi() {
-        return "org.openflexo:kafkaconnector-ui:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:kafka-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String javaConnectorUi() {
@@ -323,7 +339,7 @@ class OpenFlexoConvention {
     }
 
     String jdbcConnectorUi() {
-        return "org.openflexo:jdbcconnector-ui:${project.openflexo.openflexoVersion}"
+        return "org.openflexo:jdbc-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String odtConnectorUi() {
@@ -366,7 +382,74 @@ class OpenFlexoConvention {
         return "org.openflexo:obp2-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
+    String csvConnector() {
+        return "org.openflexo:csv-ta:${project.openflexo.openflexoVersion}"
+    }
 
+    String csvConnectorUi() {
+        return "org.openflexo:csv-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+    
+    String mcpConnector() {
+        return "org.openflexo:mcp-ta:${project.openflexo.openflexoVersion}"
+    }
+
+    String mcpConnectorUi() {
+        return "org.openflexo:mcp-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String restConnector() {
+        return "org.openflexo:rest-ta:${project.openflexo.openflexoVersion}"
+    }
+
+    String restConnectorRc() {
+        return "org.openflexo:rest-ta-rc:${project.openflexo.openflexoVersion}"
+    }
+
+    String restConnectorUi() {
+        return "org.openflexo:rest-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String markdownConnector() {
+        return "org.openflexo:markdown-ta:${project.openflexo.openflexoVersion}"
+    }
+
+    String markdownConnectorUi() {
+        return "org.openflexo:markdown-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String jsonConnector() {
+        return "org.openflexo:json-ta:${project.openflexo.openflexoVersion}"
+    }
+
+    String jsonConnectorUi() {
+        return "org.openflexo:json-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String xxConnector() {
+        return "org.openflexo:xx-ta:${project.openflexo.openflexoVersion}"
+    }
+
+    String xxConnectorUi() {
+        return "org.openflexo:xx-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String dslConnector() {
+        return "org.openflexo:dsl-ta:${project.openflexo.openflexoVersion}"
+    }
+
+    String dslConnectorUi() {
+        return "org.openflexo:dsl-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    String rhapsodyConnector() {
+        return "org.openflexo:rhapsody-ta:${project.openflexo.openflexoVersion}"
+    }
+
+    String rhapsodyConnectorUi() {
+        return "org.openflexo:rhapsody-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+ 
 }
 
 /**
