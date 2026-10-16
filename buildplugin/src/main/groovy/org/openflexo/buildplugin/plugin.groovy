@@ -3,6 +3,7 @@ package org.openflexo.buildplugin
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.api.tasks.javadoc.Javadoc
@@ -567,6 +568,13 @@ class OpenFlexoBuild implements Plugin<Project> {
             apply plugin: 'java-library'
             apply plugin: 'maven-publish'
             apply plugin: 'com.jfrog.artifactory'
+
+            // Compiles, tests and runs with Java 17, whatever JDK launches Gradle
+            java {
+                toolchain {
+                    languageVersion = JavaLanguageVersion.of(17)
+                }
+            }
 
             // Sets Java compile option to use UTF-8 encoding
             compileJava.options.encoding = 'UTF-8'
