@@ -569,10 +569,12 @@ class OpenFlexoBuild implements Plugin<Project> {
             apply plugin: 'maven-publish'
             apply plugin: 'com.jfrog.artifactory'
 
-            // Compiles, tests and runs with Java 17, whatever JDK launches Gradle
+            // Bytecode floor is Java 17. Compiles, tests and runs on a Java 17 toolchain by default,
+            // whatever JDK launches Gradle; -PjavaVersion=21 (or 25) runs everything on that JDK instead.
+            def toolchainVersion = project.hasProperty('javaVersion') ? Integer.parseInt(project.property('javaVersion').toString()) : 17
             java {
                 toolchain {
-                    languageVersion = JavaLanguageVersion.of(17)
+                    languageVersion = JavaLanguageVersion.of(toolchainVersion)
                 }
             }
 
@@ -580,6 +582,7 @@ class OpenFlexoBuild implements Plugin<Project> {
             compileJava.options.encoding = 'UTF-8'
             tasks.withType(JavaCompile) {
                 options.encoding = 'UTF-8'
+                options.release = 17
            	}
 
             // Declares repositories to refer to
