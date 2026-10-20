@@ -22,6 +22,17 @@ class OpenFlexoExtension {
 }
 
 /**
+ * Versions of the third-party libraries shared by several OpenFlexo projects
+ */
+class OpenFlexoThirdParty {
+    static final String JACKSON = "2.22.4"
+    static final String GUAVA = "33.7.2-jre"
+    static final String GSON = "2.14.0"
+    static final String HTTPCLIENT = "4.5.14"
+    static final String JSR305 = "3.0.2"
+}
+
+/**
  * OpenFlexoConvention to declare dependencies
  */
 class OpenFlexoConvention {
@@ -449,6 +460,34 @@ class OpenFlexoConvention {
 
     String rhapsodyConnectorUi() {
         return "org.openflexo:rhapsody-ta-ui:${project.openflexo.openflexoVersion}"
+    }
+
+    // Third-party libraries: ONE version per library for the whole workspace.
+    // Never write the version of one of these in a build.gradle; bump it here.
+
+    String jacksonCore() {
+        return "com.fasterxml.jackson.core:jackson-core:${OpenFlexoThirdParty.JACKSON}"
+    }
+
+    String jacksonDatabind() {
+        return "com.fasterxml.jackson.core:jackson-databind:${OpenFlexoThirdParty.JACKSON}"
+    }
+
+    String guava() {
+        return "com.google.guava:guava:${OpenFlexoThirdParty.GUAVA}"
+    }
+
+    String gson() {
+        return "com.google.code.gson:gson:${OpenFlexoThirdParty.GSON}"
+    }
+
+    // javax.annotation.Nonnull / Nullable. Guava used to bring it, it does not anymore.
+    String jsr305() {
+        return "com.google.code.findbugs:jsr305:${OpenFlexoThirdParty.JSR305}"
+    }
+
+    String httpClient() {
+        return "org.apache.httpcomponents:httpclient:${OpenFlexoThirdParty.HTTPCLIENT}"
     }
  
 }
