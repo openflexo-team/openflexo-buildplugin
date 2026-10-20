@@ -30,6 +30,9 @@ class OpenFlexoThirdParty {
     static final String GSON = "2.14.0"
     static final String HTTPCLIENT = "4.5.14"
     static final String JSR305 = "3.0.2"
+    static final String DOCX4J = "17.3.3"
+    static final String JAKARTA_XML_BIND = "4.0.2"
+    static final String JAXB_RUNTIME = "4.0.9"
     static final String COMMONS_IO = "2.22.0"
     static final String COMMONS_LANG3 = "3.21.0"
     static final String COMMONS_COMPRESS = "1.28.0"
@@ -564,6 +567,23 @@ class OpenFlexoConvention {
 
     String jclOverSlf4j() {
         return "org.slf4j:jcl-over-slf4j:${OpenFlexoThirdParty.SLF4J}"
+    }
+
+    // docx4j is split in a core and a JAXB implementation since 8.x (the single artifact docx4j stops at 6.1.2)
+    String docx4jCore() {
+        return "org.docx4j:docx4j-core:${OpenFlexoThirdParty.DOCX4J}"
+    }
+
+    String docx4jJaxbReferenceImpl() {
+        return "org.docx4j:docx4j-JAXB-ReferenceImpl:${OpenFlexoThirdParty.DOCX4J}"
+    }
+
+    String jakartaXmlBindApi() {
+        return "jakarta.xml.bind:jakarta.xml.bind-api:${OpenFlexoThirdParty.JAKARTA_XML_BIND}"
+    }
+
+    String jaxbRuntime() {
+        return "org.glassfish.jaxb:jaxb-runtime:${OpenFlexoThirdParty.JAXB_RUNTIME}"
     }
 
     String httpClient() {

@@ -33,6 +33,20 @@ version per library for the whole workspace, never written in a `build.gradle`.
   set for an INSERT that gives its key (`SQLHelper.insert` now falls back on the primary key of the line).
 
 **To do.**
+- Tier B, lot B1 (cleanup): `javax.xml.ws.Holder` replaced by `AtomicReference` in `FlexoController` and the JAX-WS
+  dependencies dropped from `flexo-ui`; unused JAXB declarations removed from `flexo-foundation`, `diana-core` and
+  `formod-app`. Found while doing it: the real `javax` users are few and tied to a library that imposes them
+  (docx4j for JAXB, Hibernate 5.2 for `javax.persistence`, Lyo for `javax.servlet`), so `javax` to `jakarta` moves
+  to tier C with those libraries. Hibernate 5.2 and POI 3.17 still need JAXB at run time (declared in `jdbc-ta`
+  and in the tests of `diana-palettes`). `pamela-spring-security-uc` is not part of the build (not in
+  `pamela/settings.gradle`): delete or archive it.
+- Tier C, docx: docx4j 6.1.2 to 17.3.3 (the single `docx4j` artifact stops at 6.1.2: now `docx4j-core` plus the JAXB
+  reference implementation), JAXB on `jakarta.xml.bind` 4. API changes met: `RPrAbstract` is gone (`RPr` and
+  `ParaRPr` have no common type any more; the TA only ever used `RPr`), `getStyleTree` and
+  `getPropertyResolver().activateStyle` throw checked exceptions. `jdbc-ta` now declares the javax-only JAXB
+  artifacts (`javax.xml.bind:jaxb-api`, `com.sun.xml.bind:jaxb-impl`): `jakarta.xml.bind-api` and `jaxb-runtime`
+  hold the javax generation up to 2.x and the jakarta one from 3, so an application with both docx4j and Hibernate
+  5.2 would otherwise resolve to the jakarta one. The 42 UI tests of `docx-ta-ui` (DOCX-D-1) were not run.
 - Tier A, left over: `h2` (legacy sample `pamela-spring-security-uc` only), `xerces` (2.12.2 is the last release),
   `jline` 2.11 (the successor `org.jline` has another API: tier C).
 - Tier B: `javax` to `jakarta` (JAXB, servlet, annotation, jaxws, persistence with Hibernate 6).
