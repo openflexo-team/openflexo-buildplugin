@@ -30,6 +30,18 @@ class OpenFlexoThirdParty {
     static final String GSON = "2.14.0"
     static final String HTTPCLIENT = "4.5.14"
     static final String JSR305 = "3.0.2"
+    static final String COMMONS_IO = "2.22.0"
+    static final String COMMONS_LANG3 = "3.21.0"
+    static final String COMMONS_COMPRESS = "1.28.0"
+    static final String COMMONS_CODEC = "1.23.0"
+    static final String COMMONS_CSV = "1.14.1"
+    static final String COMMONS_DBUTILS = "1.8.1"
+    static final String HSQLDB = "2.7.4"
+    static final String JGIT = "7.8.0.202609011348-r"
+    static final String JUNG = "2.1.1"
+    static final String BATIK = "1.19"
+    static final String XERCES = "2.12.2"
+    static final String SLF4J = "2.0.20"
 }
 
 /**
@@ -484,6 +496,74 @@ class OpenFlexoConvention {
     // javax.annotation.Nonnull / Nullable. Guava used to bring it, it does not anymore.
     String jsr305() {
         return "com.google.code.findbugs:jsr305:${OpenFlexoThirdParty.JSR305}"
+    }
+
+    String commonsIo() {
+        return "commons-io:commons-io:${OpenFlexoThirdParty.COMMONS_IO}"
+    }
+
+    String commonsLang3() {
+        return "org.apache.commons:commons-lang3:${OpenFlexoThirdParty.COMMONS_LANG3}"
+    }
+
+    String commonsCompress() {
+        return "org.apache.commons:commons-compress:${OpenFlexoThirdParty.COMMONS_COMPRESS}"
+    }
+
+    String commonsCodec() {
+        return "commons-codec:commons-codec:${OpenFlexoThirdParty.COMMONS_CODEC}"
+    }
+
+    String commonsCsv() {
+        return "org.apache.commons:commons-csv:${OpenFlexoThirdParty.COMMONS_CSV}"
+    }
+
+    String commonsDbutils() {
+        return "commons-dbutils:commons-dbutils:${OpenFlexoThirdParty.COMMONS_DBUTILS}"
+    }
+
+    String hsqldb() {
+        return "org.hsqldb:hsqldb:${OpenFlexoThirdParty.HSQLDB}"
+    }
+
+    String hsqldbSqltool() {
+        return "org.hsqldb:sqltool:${OpenFlexoThirdParty.HSQLDB}"
+    }
+
+    String jgit() {
+        return "org.eclipse.jgit:org.eclipse.jgit:${OpenFlexoThirdParty.JGIT}"
+    }
+
+    String jungAlgorithms() {
+        return "net.sf.jung:jung-algorithms:${OpenFlexoThirdParty.JUNG}"
+    }
+
+    String jungGraphImpl() {
+        return "net.sf.jung:jung-graph-impl:${OpenFlexoThirdParty.JUNG}"
+    }
+
+    String batikCodec() {
+        return "org.apache.xmlgraphics:batik-codec:${OpenFlexoThirdParty.BATIK}"
+    }
+
+    String batikDom() {
+        return "org.apache.xmlgraphics:batik-dom:${OpenFlexoThirdParty.BATIK}"
+    }
+
+    String batikSvggen() {
+        return "org.apache.xmlgraphics:batik-svggen:${OpenFlexoThirdParty.BATIK}"
+    }
+
+    String xerces() {
+        return "xerces:xercesImpl:${OpenFlexoThirdParty.XERCES}"
+    }
+
+    String slf4jJdk14() {
+        return "org.slf4j:slf4j-jdk14:${OpenFlexoThirdParty.SLF4J}"
+    }
+
+    String jclOverSlf4j() {
+        return "org.slf4j:jcl-over-slf4j:${OpenFlexoThirdParty.SLF4J}"
     }
 
     String httpClient() {
