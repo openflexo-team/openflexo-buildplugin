@@ -67,6 +67,19 @@ version per library for the whole workspace, never written in a `build.gradle`.
   Differences to check by eye on real slides: a rotated shape was matched on its outline, it is matched on its
   anchor now. `TestActions` only checks that the import runs (its assertion on the number of shapes is commented
   out), so it does not prove that the diagram is the same.
+- JDK 25: the 96 test modules give the same results as on 17. The applications (formod and Flexo Maintainer) were
+  started by hand on JDK 25: the first start died in the FML editor support (UI-D-3, fixed), which no headless test
+  reaches. Lesson: a JDK change is validated by starting the applications, not only by the tests.
+- Gradle 9 (9.8.2 in the `openflexo-dev` composite): the whole workspace configures, compiles and the SableCC
+  grammars regenerate. What Gradle 9 removed and was replaced: the `Convention` API that carried the dependency helpers
+  (they are closures of the extra properties now, set by `OpenFlexoBuild.exposeHelpers`; the helper `openflexo(name)` is
+  `openflexoModule(name)` because it would hide the extension `openflexo`), `JavaPluginConvention`, `DslObject` and
+  `ConfigureUtil` in `gradle-sablecc-plugin` (1.4.0), `mainClassName` (6 applications, now `application { mainClass }`),
+  a module declared in a `settings.gradle` without a directory (`diagram-ta-test`). The Artifactory plugin 5.2.0 still
+  loads (not upgraded); an upload was not tried. Left for Gradle 10: the `propName value` syntax (48 places), the
+  multi-string dependency notation, `Configuration.setVisible`, `afterSuite(Closure)`. The 8.14.3 wrappers of the
+  repositories are not moved yet: a standalone repository build still resolves the published plugins, which must be
+  released first (build plugin, SableCC plugin 1.4.0).
 - Tier A, left over: `h2` (legacy sample `pamela-spring-security-uc` only), `xerces` (2.12.2 is the last release),
   `jline` 2.11 (the successor `org.jline` has another API: tier C).
 - Tier B: `javax` to `jakarta` (JAXB, servlet, annotation, jaxws, persistence with Hibernate 6).

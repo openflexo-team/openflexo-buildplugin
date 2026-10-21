@@ -395,7 +395,8 @@ class OpenFlexoConvention {
         return "org.openflexo:xml-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
-    String openflexo(String name) {
+    // Not named openflexo(): it would hide the extension openflexo (versions) once exposed as an extra property
+    String openflexoModule(String name) {
         return "org.openflexo:$name:${project.openflexo.openflexoVersion}"
     }
 
@@ -619,11 +620,31 @@ class OpenFlexoConvention {
  */
 class OpenFlexoBuild implements Plugin<Project> {
 
+    /**
+     * Exposes each public method of the helpers (a method that returns a dependency notation) as a closure of the extra
+     * properties of the project and of its subprojects (evaluated later), so that a build script can call it as <code>connie()</code>.
+     */
+    private static void exposeHelpers(Project project, OpenFlexoConvention helpers) {
+        def names = OpenFlexoConvention.declaredMethods.findAll {
+            java.lang.reflect.Modifier.isPublic(it.modifiers) && !it.synthetic && it.returnType == String
+        }.collect { it.name }.unique()
+        def expose = { Project target ->
+            names.each { String name ->
+                target.ext.set(name, { Object... args -> helpers."${name}"(*args) })
+            }
+        }
+        expose(project)
+        project.subprojects { Project sub -> expose(sub) }
+    }
+
     void apply(Project project) {
 
         project.extensions.create("openflexo", OpenFlexoExtension)
 
-        project.convention.plugins.put("openflexo", new OpenFlexoConvention(project))
+        // The dependency helpers (connie(), pamela(), ...) are called as methods of the project in the build scripts. The Convention API
+        // that used to carry them is gone in Gradle 9: each helper is exposed as a closure in the extra properties, which Gradle
+        // also resolves when a script calls it as a method.
+        exposeHelpers(project, new OpenFlexoConvention(project))
 
         def containerProject = project.getTasks()
 
