@@ -67,6 +67,19 @@ version per library for the whole workspace, never written in a `build.gradle`.
   Differences to check by eye on real slides: a rotated shape was matched on its outline, it is matched on its
   anchor now. `TestActions` only checks that the import runs (its assertion on the number of shapes is commented
   out), so it does not prove that the diagram is the same.
+- JDK 25: the 96 test modules give the same results as on 17. The applications (formod and Flexo Maintainer) were
+  started by hand on JDK 25: the first start died in the FML editor support (UI-D-3, fixed), which no headless test
+  reaches. Lesson: a JDK change is validated by starting the applications, not only by the tests.
+- Gradle 9 (9.8.2 in the `openflexo-dev` composite): the whole workspace configures, compiles and the SableCC
+  grammars regenerate. What Gradle 9 removed and was replaced: the `Convention` API that carried the dependency helpers
+  (they are closures of the extra properties now, set by `OpenFlexoBuild.exposeHelpers`; the helper `openflexo(name)` is
+  `openflexoModule(name)` because it would hide the extension `openflexo`), `JavaPluginConvention`, `DslObject` and
+  `ConfigureUtil` in `gradle-sablecc-plugin` (1.4.0), `mainClassName` (6 applications, now `application { mainClass }`),
+  a module declared in a `settings.gradle` without a directory (`diagram-ta-test`). The Artifactory plugin 5.2.0 still
+  loads (not upgraded); an upload was not tried. Left for Gradle 10: the `propName value` syntax (48 places), the
+  multi-string dependency notation, `Configuration.setVisible`, `afterSuite(Closure)`. The 8.14.3 wrappers of the
+  repositories are not moved yet: a standalone repository build still resolves the published plugins, which must be
+  released first (build plugin, SableCC plugin 1.4.0).
 - Tier A, left over: `h2` (legacy sample `pamela-spring-security-uc` only), `xerces` (2.12.2 is the last release),
   `jline` 2.11 (the successor `org.jline` has another API: tier C).
 - Tier B: `javax` to `jakarta` (JAXB, servlet, annotation, jaxws, persistence with Hibernate 6).
@@ -123,3 +136,19 @@ current line. The adapter uses Hibernate internals (`MetadataBuilderImpl`, `InFl
 `BasicValue`, `HbnMetadataUtils`): expect another round of changes.
 
 **Acceptance.** `jdbc-ta-test` and `jdbc-ta-ui` green (65 tests, the FML script `TestJDBCQuery` included).
+
+### BUILD-F-6 — Version policy of the build plugins  ·  `IN PROGRESS`
+
+**Problem (2026-10-21).** Versions of the plugins changed content without changing number: the build plugin `0.3` is
+published by the Jenkins job of each push of the 3.0 branch (and probably of 2.99), into `openflexo-release`, which accepts
+overwriting; its `0.4` of September 2025 was never used. The SableCC plugin sat on a branch named `1.3.0` with a Jenkins job
+on JAVA 8, and the Artifactory plugin was resolved as `latest.release` in two places and `5.2.0` in a third.
+
+**Decisions.**
+- Build plugin: `0.4` (the 40 repositories pin it), republished once. From now on a published number is never published
+  again: any change that a repository can see bumps it.
+- SableCC plugin: `1.4.0`, built with `--release 17`, branch `3.0`, Jenkins job `gradle-sablecc-plugin-3.0` on JAVA 17. The
+  repositories ask for `[1.4.0,)`: 1.3.0 does not work with Gradle 9. The job `gradle-sablecc-plugin-1.3.0` is left as it is.
+- Artifactory plugin (`build-info-extractor-gradle`): `5.2.0` everywhere.
+
+**Release order.** SableCC plugin 1.4.0, build plugin 0.4, then the repositories; the wrappers move to Gradle 9 last.
