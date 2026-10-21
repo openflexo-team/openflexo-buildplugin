@@ -30,6 +30,7 @@ class OpenFlexoThirdParty {
     static final String GSON = "2.14.0"
     static final String HTTPCLIENT = "4.5.14"
     static final String JSR305 = "3.0.2"
+    static final String HIBERNATE = "6.6.59.Final"
     static final String DOCX4J = "17.3.3"
     static final String JAKARTA_XML_BIND = "4.0.2"
     static final String JAXB_RUNTIME = "4.0.9"
@@ -584,6 +585,11 @@ class OpenFlexoConvention {
 
     String jaxbRuntime() {
         return "org.glassfish.jaxb:jaxb-runtime:${OpenFlexoThirdParty.JAXB_RUNTIME}"
+    }
+
+    // Hibernate ORM (group org.hibernate.orm since 6.0, Jakarta Persistence)
+    String hibernateCore() {
+        return "org.hibernate.orm:hibernate-core:${OpenFlexoThirdParty.HIBERNATE}"
     }
 
     String httpClient() {

@@ -47,6 +47,15 @@ version per library for the whole workspace, never written in a `build.gradle`.
   artifacts (`javax.xml.bind:jaxb-api`, `com.sun.xml.bind:jaxb-impl`): `jakarta.xml.bind-api` and `jaxb-runtime`
   hold the javax generation up to 2.x and the jakarta one from 3, so an application with both docx4j and Hibernate
   5.2 would otherwise resolve to the jakarta one. The 42 UI tests of `docx-ta-ui` (DOCX-D-1) were not run.
+- Tier C, jdbc: Hibernate 5.2.10 to 6.6.59 (`org.hibernate.orm`), `javax.persistence` to `jakarta.persistence`. The TA
+  builds the Hibernate mapping programmatically with internal classes, which changed a lot. What 6.x needs and 5.x
+  did not (done in `HbnMetadataUtils.complete`, called before validating the metadata): resolve each `BasicValue`;
+  a to-one association that references the identifier must reference the primary key, not name the property;
+  every column of a table must be bound to a value; a property with nullable columns must be flagged optional.
+  Also: `BootstrapContext` and the type configuration scope are created explicitly, `RootClass` needs an
+  optimistic lock style, `hibernate.column_ordering_strategy=legacy`. The JAXB (javax) workaround and javassist
+  declarations of `jdbc-ta` are gone. A test builder added a unique key to the wrong table (fixed). Hibernate 7
+  is the next step if wanted (BUILD-F-5).
 - Tier A, left over: `h2` (legacy sample `pamela-spring-security-uc` only), `xerces` (2.12.2 is the last release),
   `jline` 2.11 (the successor `org.jline` has another API: tier C).
 - Tier B: `javax` to `jakarta` (JAXB, servlet, annotation, jaxws, persistence with Hibernate 6).
@@ -95,3 +104,11 @@ API breaks.
 **Decision.** Stay on 2.x while it is maintained and nothing requires 3. Users: `rest-ta`, `json-ta`,
 `pamela-editor`, `http-server`. Re-evaluate when a library of the workspace needs Jackson 3 or 2.x reaches its end
 of support.
+
+### BUILD-F-5 — Hibernate 7  ·  `TODO`
+
+**Problem.** `jdbc-ta` is on Hibernate 6.6 (the last 6.x). Hibernate 7 (7.4, Jakarta Persistence 3.2, Java 17) is the
+current line. The adapter uses Hibernate internals (`MetadataBuilderImpl`, `InFlightMetadataCollectorImpl`,
+`BasicValue`, `HbnMetadataUtils`): expect another round of changes.
+
+**Acceptance.** `jdbc-ta-test` and `jdbc-ta-ui` green (65 tests, the FML script `TestJDBCQuery` included).
