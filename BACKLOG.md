@@ -56,6 +56,17 @@ version per library for the whole workspace, never written in a `build.gradle`.
   optimistic lock style, `hibernate.column_ordering_strategy=legacy`. The JAXB (javax) workaround and javassist
   declarations of `jdbc-ta` are gone. A test builder added a unique key to the wrong table (fixed). Hibernate 7
   is the next step if wanted (BUILD-F-5).
+- Tier C, POI: 3.17 and 3.12 to 5.5.1 (`poi()`, `poiOoxml()`, `poiScratchpad()`), one version for the whole
+  workspace (xlsx, pptx, diagram, diana-ppt-editor, diana-palettes). docx and odt do not use POI. API changes met:
+  `getCellTypeEnum` and `getBorderXEnum` are now `getCellType` and `getBorderX`, `HSSFColor.X.index` is
+  `HSSFColorPredefined.X.getIndex()`, `XSSFColor` takes an `IndexedColorMap`, `WorkbookFactory.create` no longer
+  throws `InvalidFormatException`, the geometry paths are `PathIf`. The importer of binary `.ppt` slides of the
+  diagram TA (`AbstractCreateDiagramFromPPTSlide`, 1300 lines) used the `org.apache.poi.hslf.model` classes,
+  removed in POI 4: it now uses `HSLF*` (`HSLFShape`, `HSLFSlide`, ...), the `sl.usermodel.ShapeType` enum, the
+  `EscherPropertyTypes` enum, text paragraphs and runs, and `getAnchor()` instead of the outline and logical anchor.
+  Differences to check by eye on real slides: a rotated shape was matched on its outline, it is matched on its
+  anchor now. `TestActions` only checks that the import runs (its assertion on the number of shapes is commented
+  out), so it does not prove that the diagram is the same.
 - Tier A, left over: `h2` (legacy sample `pamela-spring-security-uc` only), `xerces` (2.12.2 is the last release),
   `jline` 2.11 (the successor `org.jline` has another API: tier C).
 - Tier B: `javax` to `jakarta` (JAXB, servlet, annotation, jaxws, persistence with Hibernate 6).

@@ -30,6 +30,7 @@ class OpenFlexoThirdParty {
     static final String GSON = "2.14.0"
     static final String HTTPCLIENT = "4.5.14"
     static final String JSR305 = "3.0.2"
+    static final String POI = "5.5.1"
     static final String HIBERNATE = "6.6.59.Final"
     static final String DOCX4J = "17.3.3"
     static final String JAKARTA_XML_BIND = "4.0.2"
@@ -590,6 +591,19 @@ class OpenFlexoConvention {
     // Hibernate ORM (group org.hibernate.orm since 6.0, Jakarta Persistence)
     String hibernateCore() {
         return "org.hibernate.orm:hibernate-core:${OpenFlexoThirdParty.HIBERNATE}"
+    }
+
+    // Apache POI: spreadsheets (poi, poi-ooxml), slideshows (poi-scratchpad for the binary .ppt, poi-ooxml for .pptx)
+    String poi() {
+        return "org.apache.poi:poi:${OpenFlexoThirdParty.POI}"
+    }
+
+    String poiOoxml() {
+        return "org.apache.poi:poi-ooxml:${OpenFlexoThirdParty.POI}"
+    }
+
+    String poiScratchpad() {
+        return "org.apache.poi:poi-scratchpad:${OpenFlexoThirdParty.POI}"
     }
 
     String httpClient() {
