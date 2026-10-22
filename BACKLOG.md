@@ -76,7 +76,17 @@ version per library for the whole workspace, never written in a `build.gradle`.
   `openflexoModule(name)` because it would hide the extension `openflexo`), `JavaPluginConvention`, `DslObject` and
   `ConfigureUtil` in `gradle-sablecc-plugin` (1.4.0), `mainClassName` (6 applications, now `application { mainClass }`),
   a module declared in a `settings.gradle` without a directory (`diagram-ta-test`). The Artifactory plugin 5.2.0 still
-  loads (not upgraded); an upload was not tried. Left for Gradle 10: the `propName value` syntax (48 places), the
+  loads (not upgraded); an upload was not tried. **Found on Jenkins on 2026-10-22, after the wrappers moved to Gradle 9:**
+  the `uiTest` task, a `Test` created by hand, lost the classes and the classpath of the test source set that Gradle used to give
+  it by a deprecated convention: it ran nothing (`NO-SOURCE`). `docx`, `owl`, `xlsx` and `ui-test` turned green because their UI
+  tests had vanished from the results; `diana-1.7-ui-tests` and `gina-2.4-ui-test` turned red ("No test report files were found").
+  Fixed in the build plugin 0.4, published again under the same number (`testClassesDirs` and `classpath` set from the `test`
+  source set); with it `xlsx-ta-ui` runs its 3 tests again (the 3 known failures). Why the number is reused: only the 3.0 line
+  consumes 0.4 and 36 of the 41 Gradle jobs of the 3.0 line run with `--refresh-dependencies`. The five others do not:
+  `openflexo-buildplugin-3.0` (it builds the plugin) and the four jobs that run only `uiTest` (`diana-1.7-ui-tests`,
+  `gina-2.4-ui-test`, `openflexo-emf-3.0-ui-test`, `openflexo-ui-3.0-ui-test`), which depend on the cache of `of-jenkins-runner-1` that
+  the other jobs refresh; adding the switch to them would remove that fragility. A standalone build on a workstation keeps the old
+  jar in its Gradle cache until it runs with `--refresh-dependencies`. Left for Gradle 10: the `propName value` syntax (48 places), the
   multi-string dependency notation, `Configuration.setVisible`, `afterSuite(Closure)`. The wrappers of the 41 repositories
   moved to 9.8.2 on 2026-10-21 once both plugins were published (build plugin 0.4, SableCC plugin 1.4.0). Checked before the
   change, with the 9.8.2 distribution on each repository alone against the artifacts published by Jenkins: `compile` green for
@@ -152,8 +162,9 @@ overwriting; its `0.4` of September 2025 was never used. The SableCC plugin sat 
 on JAVA 8, and the Artifactory plugin was resolved as `latest.release` in two places and `5.2.0` in a third.
 
 **Decisions.**
-- Build plugin: `0.4` (the 40 repositories pin it), republished once. From now on a published number is never published
-  again: any change that a repository can see bumps it.
+- Build plugin: `0.4` (the 40 repositories pin it). A number is published again only while a single line consumes it and its jobs
+  refresh their dependencies (done once for the `uiTest` fix, 2026-10-22). Two live lines on one number is what broke 2.99 (JENKINS-D-8):
+  never again.
 - SableCC plugin: `1.4.0`, built with `--release 17`, branch `3.0`, Jenkins job `gradle-sablecc-plugin-3.0` on JAVA 17. The
   repositories ask for `[1.4.0,)`: 1.3.0 does not work with Gradle 9. The job `gradle-sablecc-plugin-1.3.0` is left as it is.
 - Artifactory plugin (`build-info-extractor-gradle`): `5.2.0` everywhere.

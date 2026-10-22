@@ -798,9 +798,15 @@ class OpenFlexoBuild implements Plugin<Project> {
                 }
             }
 
+            // Gradle 9 does not give a Test task created by hand the classes and the classpath of the test source set any more
+            // (it used to, through a deprecated convention): without them the task has no source and silently runs nothing.
+            def testSourceSet = getExtensions().getByType(org.gradle.api.plugins.JavaPluginExtension).sourceSets.getByName('test')
+
             def uiTest = container.create('uiTest', Test, {
                 description = "UI test task."
                 group = 'Verification'
+                testClassesDirs = testSourceSet.output.classesDirs
+                classpath = testSourceSet.runtimeClasspath
                 ignoreFailures = true
                 maxParallelForks = 1;
                 maxHeapSize = "3g"
