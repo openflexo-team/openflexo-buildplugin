@@ -77,9 +77,12 @@ version per library for the whole workspace, never written in a `build.gradle`.
   `ConfigureUtil` in `gradle-sablecc-plugin` (1.4.0), `mainClassName` (6 applications, now `application { mainClass }`),
   a module declared in a `settings.gradle` without a directory (`diagram-ta-test`). The Artifactory plugin 5.2.0 still
   loads (not upgraded); an upload was not tried. Left for Gradle 10: the `propName value` syntax (48 places), the
-  multi-string dependency notation, `Configuration.setVisible`, `afterSuite(Closure)`. The 8.14.3 wrappers of the
-  repositories are not moved yet: a standalone repository build still resolves the published plugins, which must be
-  released first (build plugin, SableCC plugin 1.4.0).
+  multi-string dependency notation, `Configuration.setVisible`, `afterSuite(Closure)`. The wrappers of the 41 repositories
+  moved to 9.8.2 on 2026-10-21 once both plugins were published (build plugin 0.4, SableCC plugin 1.4.0). Checked before the
+  change, with the 9.8.2 distribution on each repository alone against the artifacts published by Jenkins: `compile` green for
+  39 repositories, `build` green for the two plugin repositories (they have no `compile` task), the tests of `connie` green.
+  Not moved: `website` (its `buildWebsite` clones, commits and pushes; not tried on Gradle 9). The Gradle jobs of the 3.0 line
+  all run on JAVA 17, which Gradle 9 needs; only the two Maven packaging jobs are on JAVA 11 and do not use the wrapper.
 - Tier A, left over: `h2` (legacy sample `pamela-spring-security-uc` only), `xerces` (2.12.2 is the last release),
   `jline` 2.11 (the successor `org.jline` has another API: tier C).
 - Tier B: `javax` to `jakarta` (JAXB, servlet, annotation, jaxws, persistence with Hibernate 6).
