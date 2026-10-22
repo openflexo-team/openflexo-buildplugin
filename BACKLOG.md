@@ -92,7 +92,11 @@ version per library for the whole workspace, never written in a `build.gradle`.
   re-checked; run the deprecation report first.
 - Java code flagged by the scan: `SecurityManager` (3 files), `finalize()` (12 files), `com.apple.eawt` (4 files),
   `--add-modules java.xml.bind` in 3 `build.gradle`.
-- Tracking: version drift report (versions plugin or Renovate) and a vulnerability scan on Jenkins, non blocking.
+- Tracking, tool done 2026-10-22: `tools/dependency-report.py` (Python 3 standard library, no build dependency) lists every
+  third-party library declared in the workspace (the `OpenFlexoThirdParty` constants and the notations left in the
+  `build.gradle` files), its latest stable version on Maven Central and its known vulnerabilities in OSV. It is informative
+  (exit code 0; `--fail-on-vulnerability` for a gate). First run: 84 versions, 43 behind the latest stable one, 8 with a known
+  vulnerability. A periodic Jenkins job running it is still to do (JENKINS-F-5).
 - Jenkins: a JDK 21 tool and 3.0 jobs on it, a JDK 25 canary (needs the user's approval).
 
 **Acceptance.** `./gradlew test` gives the same `Results:` on Java 17 and 21 for every module; no third-party
@@ -155,3 +159,24 @@ on JAVA 8, and the Artifactory plugin was resolved as `latest.release` in two pl
 - Artifactory plugin (`build-info-extractor-gradle`): `5.2.0` everywhere.
 
 **Release order.** SableCC plugin 1.4.0, build plugin 0.4, then the repositories; the wrappers move to Gradle 9 last.
+
+### BUILD-F-7 — Libraries with a known vulnerability  ·  `IN PROGRESS`
+
+**Problem.** The first run of `tools/dependency-report.py` (2026-10-22) found 8 versions with known vulnerabilities in the
+build of the workspace (the unbuilt sample `pamela-spring-security-uc` is left out).
+
+| Library | In use | Where | Way out |
+|---|---|---|---|
+| `pdfbox` | 2.0.2 | `pdf-ta` | latest 2.0.x: same major version, no API change expected |
+| `vertx-core`, `vertx-web` (and `vertx-auth-htpasswd`, `-web-client`, `-unit`, `-junit5` for consistency) | 4.3.6 and 4.3.7 | `http-server` | latest 4.x first; 5.x later (138 tests in `http-server` as a net) |
+| `guava` | 27.0-jre | `gradle-sablecc-plugin` | only `CaseFormat` is used: replace it and drop the dependency (a new plugin number) |
+| `jena-core` | 3.1.0 | `owl-ta` | tier C (Jena 5/6) |
+| `kafka-clients` | 0.10.2.0 | `kafka-ta` | tier C (Kafka 3/4) |
+| `velocity`, `velocity-tools` | 1.7, 2.0 | `ta-doc-generator` | no fixed version of 1.x: Velocity 2.x or another template engine |
+
+**Done 2026-10-22 (lot A3).** `pdfbox` 2.0.37 and the Vert.x modules 4.5.35, written in the `build.gradle` of the module: each is used by one module only, so
+no helper was added (a helper changes the published build plugin, which would need a new number). `pdf-ta` 19 of 19 (the test closed the
+`COSDocument` that belongs to the `PDDocument` and read the page afterwards; pdfbox 2.0.x refuses a read after the close, the test was
+fixed), `http-server` 138 of 138.
+
+**Acceptance.** `tools/dependency-report.py` reports no known vulnerability for the build of the workspace.
