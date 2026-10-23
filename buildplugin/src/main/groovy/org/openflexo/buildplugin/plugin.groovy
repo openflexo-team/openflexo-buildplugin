@@ -14,6 +14,7 @@ import org.gradle.api.publish.maven.MavenPublication
  */
 class OpenFlexoExtension {
     String utilsVersion = ""
+    String p2ppVersion = ""
     String connieVersion = ""
     String pamelaVersion = ""
     String ginaVersion = ""
@@ -68,20 +69,16 @@ class OpenFlexoConvention {
         return "org.openflexo:flexohelp:${project.openflexo.utilsVersion}"
     }
 
-    String connieUtils() {
-        return "org.openflexo:connie-utils:${project.openflexo.connieVersion}"
-    }
-
     String flexoUtils() {
         return "org.openflexo:flexo-utils:${project.openflexo.utilsVersion}"
     }
 
-    String flexoP2PP() {
-        return "org.openflexo:flexo-p2pp:${project.openflexo.utilsVersion}"
+    String p2pp() {
+        return "org.openflexo:p2pp-core:${project.openflexo.p2ppVersion}"
     }
 
     String testUtils() {
-        return "org.openflexo:testutils:${project.openflexo.connieVersion}"
+        return "org.openflexo:testutils:${project.openflexo.utilsVersion}"
     }
 
     String connie() {
@@ -780,9 +777,9 @@ class OpenFlexoBuild implements Plugin<Project> {
             // Alls tests depends on testUtils (who provides junit 4)
             dependencies {
                 //println("====> [${project.name}]")
-                if (project.name != 'connie') {
+                if (project.findProject(':testutils') == null) {
                     // Beware here the object project.openfelxo is not initialized
-                    testImplementation "org.openflexo:testutils:${project.ext.connieVersion}"
+                    testImplementation "org.openflexo:testutils:${project.ext.utilsVersion}"
                 } else
                     testImplementation project.project(':testutils')
             }
