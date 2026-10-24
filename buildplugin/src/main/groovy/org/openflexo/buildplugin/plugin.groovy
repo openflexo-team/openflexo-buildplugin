@@ -25,6 +25,39 @@ class OpenFlexoExtension {
 /**
  * Versions of the third-party libraries shared by several OpenFlexo projects
  */
+/**
+ * Settings of the <code>jpackage</code> task, available as <code>jpackage { ... }</code> in any project that applies the
+ * <code>application</code> plugin. Everything is optional: the application name defaults to the project name.
+ */
+class OpenFlexoJPackage {
+    /** Name of the application (and of the installer). */
+    String appName
+    String vendor = 'Openflexo'
+    String description
+    /** Icons, one per platform (.icns on macOS, .ico on Windows, .png on Linux); `icon` is the fallback of the three. */
+    File icon
+    File iconMac
+    File iconWindows
+    File iconLinux
+    /** A command line application: no window on Windows. */
+    boolean console = false
+    /** Installer type (dmg, pkg, msi, exe, deb, rpm) or app-image; null for the default one of the platform. */
+    String type
+    /** Options of the JVM of the installed application. */
+    List<String> jvmOptions = [
+            '-Xms1g', '-Xmx2g', '-Xss2m',
+            '--add-opens=java.base/java.util=ALL-UNNAMED',
+            '--add-opens=java.base/java.lang=ALL-UNNAMED',
+            '--add-opens=java.base/java.lang.reflect=ALL-UNNAMED',
+            '--add-opens=java.base/java.text=ALL-UNNAMED',
+            '--add-opens=java.desktop/java.awt.font=ALL-UNNAMED'
+    ]
+    /** Modules of the embedded runtime. jdeps cannot see what the application loads by reflection, so the platform is taken whole. */
+    List<String> addModules = ['java.se', 'jdk.unsupported', 'jdk.charsets', 'jdk.localedata', 'jdk.crypto.ec', 'jdk.zipfs']
+    /** Further arguments passed as is to jpackage. */
+    List<String> extraArgs = []
+}
+
 class OpenFlexoThirdParty {
     static final String JACKSON = "2.22.4"
     static final String GUAVA = "33.7.2-jre"
@@ -634,6 +667,71 @@ class OpenFlexoBuild implements Plugin<Project> {
         project.subprojects { Project sub -> expose(sub) }
     }
 
+
+    /**
+     * Adds to a project that applies <code>application</code> the task <code>jpackage</code>, which builds a native installer
+     * (or application image) embedding a Java runtime: the application and its runtime classpath are staged in
+     * <code>build/jpackage/input</code>, the result lands in <code>build/jpackage/dist</code>. jpackage builds for the platform
+     * it runs on, with the JDK of the toolchain of the project.
+     */
+    private static void configureJPackage(Project p) {
+        def cfg = p.extensions.create('jpackage', OpenFlexoJPackage)
+        def jar = p.tasks.named('jar')
+        def stagingDir = p.layout.buildDirectory.dir('jpackage/input')
+        def distDir = p.layout.buildDirectory.dir('jpackage/dist')
+
+        def stage = p.tasks.register('jpackageInput', org.gradle.api.tasks.Sync) {
+            description = "Stages the jars of ${p.name} for jpackage."
+            from(jar)
+            from(p.configurations.named('runtimeClasspath'))
+            into(stagingDir)
+        }
+
+        p.tasks.register('jpackage', org.gradle.api.tasks.Exec) {
+            group = 'Distribution'
+            description = "Builds a native installer of ${p.name} with jpackage."
+            dependsOn(stage)
+            doFirst {
+                def launcher = p.extensions.getByType(org.gradle.jvm.toolchain.JavaToolchainService)
+                        .launcherFor(p.extensions.getByType(org.gradle.api.plugins.JavaPluginExtension).toolchain).get()
+                def jpackageBin = launcher.metadata.installationPath.file('bin/jpackage').asFile
+                def name = cfg.appName ?: p.name
+                // jpackage wants a numeric version (major >= 1 on macOS): drop any -SNAPSHOT or other qualifier
+                def version = p.version.toString().replaceFirst(/[^0-9.].*$/, '').replaceAll(/\.$/, '') ?: '1.0'
+                def dist = distDir.get().asFile
+                p.delete(dist)
+                dist.mkdirs()
+
+                def cmd = [jpackageBin.absolutePath,
+                           '--name', name,
+                           '--app-version', version,
+                           '--vendor', cfg.vendor,
+                           '--input', stagingDir.get().asFile.absolutePath,
+                           '--main-jar', jar.get().archiveFileName.get(),
+                           '--main-class', p.extensions.getByName('application').mainClass.get(),
+                           '--dest', dist.absolutePath,
+                           '--add-modules', cfg.addModules.join(',')]
+                if (cfg.description) cmd += ['--description', cfg.description]
+                def os = System.getProperty('os.name').toLowerCase()
+                def isWin = os.contains('win'), isMac = os.contains('mac')
+                def icon = (isWin ? cfg.iconWindows : isMac ? cfg.iconMac : cfg.iconLinux) ?: cfg.icon
+                if (icon) cmd += ['--icon', icon.absolutePath]
+                if (isWin) {
+                    cmd += ['--win-menu', '--win-shortcut', '--win-dir-chooser']
+                    if (cfg.console) cmd += ['--win-console']
+                }
+                if (cfg.type) cmd += ['--type', cfg.type]
+                cfg.jvmOptions.each { cmd += ['--java-options', it] }
+                cmd += cfg.extraArgs
+                commandLine cmd
+                logger.lifecycle("jpackage: ${cmd.join(' ')}")
+            }
+            doLast {
+                logger.lifecycle("jpackage: result in ${distDir.get().asFile}")
+            }
+        }
+    }
+
     void apply(Project project) {
 
         project.extensions.create("openflexo", OpenFlexoExtension)
@@ -745,6 +843,10 @@ class OpenFlexoBuild implements Plugin<Project> {
             apply plugin: 'java-library'
             apply plugin: 'maven-publish'
             apply plugin: 'com.jfrog.artifactory'
+
+            // jpackage task for the applications
+            def subproject = delegate as Project // 'project' is the root one inside this closure
+            pluginManager.withPlugin('application') { OpenFlexoBuild.configureJPackage(subproject) }
 
             // Bytecode floor is Java 17. Compiles, tests and runs on a Java 17 toolchain by default,
             // whatever JDK launches Gradle; -PjavaVersion=21 (or 25) runs everything on that JDK instead.
