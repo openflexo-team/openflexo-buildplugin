@@ -41,7 +41,7 @@ class OpenFlexoJPackage {
     File iconLinux
     /** A command line application: no window on Windows. */
     boolean console = false
-    /** Installer type (dmg, pkg, msi, exe, deb, rpm) or app-image; null for the default one of the platform. */
+    /** Installer type (dmg, pkg, msi, exe, deb, rpm) or app-image; null for the default one of the platform. -Pjpackage.type=<type> overrides it. */
     String type
     /** Options of the JVM of the installed application. */
     List<String> jvmOptions = [
@@ -687,6 +687,16 @@ class OpenFlexoBuild implements Plugin<Project> {
             into(stagingDir)
         }
 
+        // The archive of the application plugin (jars in lib/, start script in bin/) is the portable distribution: it takes
+        // the JVM options of the jpackage block and is compressed as .tar.gz. It needs a Java on the machine.
+        p.tasks.named('startScripts') {
+            doFirst { defaultJvmOpts = cfg.jvmOptions }
+        }
+        p.tasks.named('distTar') {
+            compression = org.gradle.api.tasks.bundling.Compression.GZIP
+            archiveExtension.set('tar.gz')
+        }
+
         p.tasks.register('jpackage', org.gradle.api.tasks.Exec) {
             group = 'Distribution'
             description = "Builds a native installer of ${p.name} with jpackage."
@@ -698,7 +708,10 @@ class OpenFlexoBuild implements Plugin<Project> {
                 def name = cfg.appName ?: p.name
                 // jpackage wants a numeric version (major >= 1 on macOS): drop any -SNAPSHOT or other qualifier
                 def version = p.version.toString().replaceFirst(/[^0-9.].*$/, '').replaceAll(/\.$/, '') ?: '1.0'
-                def dist = distDir.get().asFile
+                // -Pjpackage.type=rpm builds that type instead of the default one; each type has its own directory so that
+                // several builds in a row do not erase one another
+                def type = p.findProperty('jpackage.type') ?: cfg.type
+                def dist = new File(distDir.get().asFile, type ?: 'native')
                 p.delete(dist)
                 dist.mkdirs()
 
@@ -720,14 +733,14 @@ class OpenFlexoBuild implements Plugin<Project> {
                     cmd += ['--win-menu', '--win-shortcut', '--win-dir-chooser']
                     if (cfg.console) cmd += ['--win-console']
                 }
-                if (cfg.type) cmd += ['--type', cfg.type]
+                if (type) cmd += ['--type', type]
                 cfg.jvmOptions.each { cmd += ['--java-options', it] }
                 cmd += cfg.extraArgs
                 commandLine cmd
                 logger.lifecycle("jpackage: ${cmd.join(' ')}")
             }
             doLast {
-                logger.lifecycle("jpackage: result in ${distDir.get().asFile}")
+                logger.lifecycle("jpackage: result in ${distDir.get().asFile}/${p.findProperty('jpackage.type') ?: cfg.type ?: 'native'}")
             }
         }
     }
