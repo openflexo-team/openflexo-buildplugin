@@ -112,17 +112,26 @@ version per library for the whole workspace, never written in a `build.gradle`.
 **Acceptance.** `./gradlew test` gives the same `Results:` on Java 17 and 21 for every module; no third-party
 version is written in a `build.gradle`; a report lists the outdated and the vulnerable dependencies.
 
-### BUILD-F-2 — Move from HttpClient 4.x to HttpClient 5  ·  `TODO`
+### BUILD-F-2 — Leave Apache HttpClient 4.x  ·  `DEFERRED`
 
 **Problem.** HttpClient 4.5.14 is the end of the 4.x line (no release since December 2022). Its successor
 `org.apache.hc.client5` has another package and another API.
 
-**Users.** `rest-ta` (`openflexo-rest`) and `oslc-ta` (`openflexo-oslc`). `oslc-ta` also depends on
-`oauth-httpclient4` and on the Lyo client, both built on the 4.x line: the move may force a Lyo upgrade or the
-replacement of the OAuth client.
+**Findings (2026-10-25).**
+- `rest-ta` does not use HttpClient in its code (one javadoc `{@link}` in `ContentSupport`). HttpClient 4 reaches it
+  through `io.rest-assured:rest-assured` (`AbstractEndPoint`, `GetEndPoint`): 5.3.0 pulls `httpclient`/`httpmime`
+  4.5.13, and the latest, 6.3.0, still pulls 4.5.14.
+- `oslc-ta` really calls HttpClient 4 (`FlexoOAuthHandlerImpl`) and `net.oauth.client.httpclient4.HttpClient4`
+  (`FlexoOAuthHandler`). The Lyo `oslc-java-client` 4.1.0 (latest stable) still depends on `oauth-httpclient4`
+  20090913.
 
-**Options.** Port the two TA to HttpClient 5; or use the JDK `java.net.http.HttpClient` (no dependency, Java 11+)
-if the features used allow it.
+**Decision.** Moving to HttpClient 5 makes no sense: no library we depend on offers a version built on it, so it would
+add a second HttpClient without removing the first. No `httpClient5()` helper is added. HttpClient 4.5.14 stays, as a
+documented exception, until one of the options below is possible.
+
+**Options.** `rest-ta`: replace `rest-assured` by the JDK `java.net.http.HttpClient` (two classes to rewrite), or wait
+for a `rest-assured` on HttpClient 5. `oslc-ta`: rewrite the OAuth part without `oauth-httpclient4` and drop the Lyo
+client, or wait for a Lyo without it (see `OSLC-D-1`).
 
 **Acceptance.** `rest-ta-test` and `oslc-ta` tests green, no `org.apache.httpcomponents:httpclient` left.
 
@@ -229,3 +238,27 @@ dependency left but SableCC itself). The plugin keeps the number 1.4.0, publishe
 **Left (2026-10-22 report).** No known vulnerability in the build of the workspace once the report is rerun (the previous one had 8).
 
 **Acceptance.** `tools/dependency-report.py` reports no known vulnerability for the build of the workspace.
+
+## Packaging
+
+### BUILD-F-9 — A `jpackage` task for the applications  ·  `DONE` (2026-10-24), follow-ups open
+
+**Problem.** The 2.99 installers came out of a Maven + Ant chain (launch4j, appbundler, `genisoimage`) that bundled no Java runtime and
+only ran on Java 8. With Java 17, `jpackage` can build native installers that embed their own runtime.
+
+**Done.** Any project that applies `application` gets a `jpackage` task and a `jpackage { }` block (`OpenFlexoJPackage`):
+`appName`, `vendor`, `description`, `iconMac` / `iconWindows` / `iconLinux` (or `icon`), `type`, `jvmOptions`, `addModules`,
+`console`, `extraArgs`. The jar and the `runtimeClasspath` are staged in `build/jpackage/input`; the result is in
+`build/jpackage/dist/<type>/`. `-Pjpackage.type=<type>` overrides the type. `distTar` produces a `.tar.gz` whose start script
+carries the same JVM options. `jpackage` cannot cross-build: the installers of the three platforms come from a GitHub Actions
+workflow of `openflexo-packaging`, published by the Jenkins job `openflexo-packaging-3.0--PUBLISH`.
+
+**Verified.** `.dmg` (macOS) opens and runs; `.deb`, `.rpm`, `.exe` and the Server image are built, and the image is started in the workflow;
+the `.deb` installs under `/opt/<package>/` with a launcher in `bin/`.
+
+**Open.**
+- A menu entry on Linux (`--linux-shortcut`, `--linux-menu-group`): the `.deb` has none today.
+- An `.msi` instead of the Windows `.exe` (`type = 'msi'`) for silent installation.
+- Signing and notarization (macOS), code signing (Windows): needs an Apple Developer account and a certificate.
+- `arm64` builds (macOS Apple silicon, Linux) next to `x86_64`.
+- The `.exe` and the Linux packages have not been run by the user yet.
