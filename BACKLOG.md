@@ -93,6 +93,17 @@ version per library for the whole workspace, never written in a `build.gradle`.
   39 repositories, `build` green for the two plugin repositories (they have no `compile` task), the tests of `connie` green.
   Not moved: `website` (its `buildWebsite` clones, commits and pushes; not tried on Gradle 9). The Gradle jobs of the 3.0 line
   all run on JAVA 17, which Gradle 9 needs; only the two Maven packaging jobs are on JAVA 11 and do not use the wrapper.
+- Gradle 10 preparation (2026-10-25): `help --warning-mode all` in `openflexo-dev` reported 170 deprecations announced as
+  errors in Gradle 10: 118 map dependency notations (`group: 'g', name: 'n', version: 'v'`: 80 are the `buildplugin` and
+  `buildconfig` classpath lines of the 40 repositories, 38 are module dependencies), 50 `maven { url x }` (the `buildscript` and
+  `subprojects` repositories), `afterSuite(Closure)` and `project.project(...)` (both in the build plugin, `testLogging` and the
+  `testutils` dependency). The messages located nothing but the build files; the plugin ones were found by the stack trace
+  (`apply plugin: 'org.openflexo.buildconfig'` was reported for `url "..."` in `OpenFlexoBuild`). Compile and test tasks add no
+  other family; `Configuration.setVisible` (Gradle 11, `gradle-sablecc-plugin`) was dropped too. Fixed: 66 `build.gradle`
+  files rewritten by a script (dry-run diff reviewed first; commented lines left alone), `plugin.groovy` (a `TestListener`
+  instead of `afterSuite`, `dependencies.project(...)`, `url =`), `SableCCPlugin`. Checked with `--warning-mode fail`:
+  `help`, `compile` and the tests of `connie-core` (99/99) pass in the composite, both plugin repositories build. The
+  `build.gradle` changes work with the published plugin 0.4; its three own warnings stay until it is published again.
 - Tier A, left over: `h2` (legacy sample `pamela-spring-security-uc` only), `xerces` (2.12.2 is the last release),
   `jline` 2.11 (the successor `org.jline` has another API: tier C).
 - Tier B: `javax` to `jakarta` (JAXB, servlet, annotation, jaxws, persistence with Hibernate 6).

@@ -880,7 +880,7 @@ class OpenFlexoBuild implements Plugin<Project> {
             // Declares repositories to refer to
             repositories {
                 maven {
-                    url "https://maven.openflexo.org/artifactory/openflexo-deps/"
+                    url = "https://maven.openflexo.org/artifactory/openflexo-deps/"
                     credentials {
                         username = "$System.env.ARTIFACTORY_USER" // The publisher user name
                         password = "$System.env.ARTIFACTORY_PASSWORD" // The publisher password
@@ -896,7 +896,7 @@ class OpenFlexoBuild implements Plugin<Project> {
                     // Beware here the object project.openfelxo is not initialized
                     testImplementation "org.openflexo:testutils:${project.ext.utilsVersion}"
                 } else
-                    testImplementation project.project(':testutils')
+                    testImplementation dependencies.project(':testutils')
             }
 
             def container = getTasks()
@@ -909,6 +909,14 @@ class OpenFlexoBuild implements Plugin<Project> {
                     println('\n' + ('-' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('-' * repeatLength))
                 }
             }
+
+            // afterSuite(Closure) is deprecated in Gradle 9 (removed in 10): the same closure goes through a TestListener
+            def resultListener = [
+                    beforeSuite: { desc -> },
+                    afterSuite : print_result,
+                    beforeTest : { desc -> },
+                    afterTest  : { desc, result -> }
+            ] as org.gradle.api.tasks.testing.TestListener
 
             // Gradle 9 does not give a Test task created by hand the classes and the classpath of the test source set any more
             // (it used to, through a deprecated convention): without them the task has no source and silently runs nothing.
@@ -925,9 +933,7 @@ class OpenFlexoBuild implements Plugin<Project> {
                 useJUnit {
                     includeCategories 'org.openflexo.test.UITest'
                 }
-                testLogging {
-                    afterSuite print_result
-                }
+                addTestListener(resultListener)
              })
 
             def test = container.getByName('test')
@@ -939,9 +945,7 @@ class OpenFlexoBuild implements Plugin<Project> {
                 useJUnit {
                     excludeCategories 'org.openflexo.test.UITest'
                 }
-                testLogging {
-                    afterSuite print_result
-                }
+                addTestListener(resultListener)
             }
 
             def testAll = container.create('testAll', {
