@@ -110,6 +110,11 @@ class OpenFlexoConvention {
         return "org.openflexo:p2pp-core:${project.openflexo.p2ppVersion}"
     }
 
+    // Test harness of p2pp (scenarios, generated edits, known defects): for the test modules of the pretty-printers built on p2pp
+    String p2ppTest() {
+        return "org.openflexo:p2pp-test:${project.openflexo.p2ppVersion}"
+    }
+
     String testUtils() {
         return "org.openflexo:testutils:${project.openflexo.utilsVersion}"
     }
