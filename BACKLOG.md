@@ -13,6 +13,8 @@ Status legend: `TODO` · `IN PROGRESS` · `BLOCKED` · `DONE` · `DEFERRED`.
 
 ### BUILD-F-1 — Recent Java, recent Gradle, tracked third-party dependencies  ·  `IN PROGRESS`
 
+**GitHub:** [openflexo-team/openflexo-buildplugin#1](https://github.com/openflexo-team/openflexo-buildplugin/issues/1)
+
 **Problem.** The 3.0 workspace must build and run on recent Java (floor 17, checked on newer JDKs), on a recent
 Gradle, with up-to-date third-party libraries and a way to see them drift. API breaks are accepted.
 
@@ -125,6 +127,8 @@ version is written in a `build.gradle`; a report lists the outdated and the vuln
 
 ### BUILD-F-2 — Leave Apache HttpClient 4.x  ·  `DEFERRED`
 
+**GitHub:** [openflexo-team/openflexo-buildplugin#2](https://github.com/openflexo-team/openflexo-buildplugin/issues/2)
+
 **Problem.** HttpClient 4.5.14 is the end of the 4.x line (no release since December 2022). Its successor
 `org.apache.hc.client5` has another package and another API.
 
@@ -148,6 +152,8 @@ client, or wait for a Lyo without it (see `OSLC-D-1`).
 
 ### BUILD-F-3 — Replace jsr305 (`javax.annotation.Nonnull` / `Nullable`)  ·  `TODO`
 
+**GitHub:** [openflexo-team/openflexo-buildplugin#3](https://github.com/openflexo-team/openflexo-buildplugin/issues/3)
+
 **Problem.** jsr305 3.0.2 has not been released since 2017. Guava 33.7 does not bring it anymore, so it is declared
 as `compileOnly jsr305()` in `pamela-core`, `flexographicutils`, `gina-swing` and `flexo-foundation` (8 source
 files). It also lives in the `javax.annotation` package.
@@ -159,6 +165,8 @@ remove these annotations, which carry little information here.
 
 ### BUILD-F-4 — Jackson 3  ·  `DEFERRED`
 
+**GitHub:** [openflexo-team/openflexo-buildplugin#4](https://github.com/openflexo-team/openflexo-buildplugin/issues/4)
+
 **Problem.** Jackson 2.22 is the last line of 2.x. Jackson 3 (3.2.x) moved to the `tools.jackson` packages, with
 API breaks.
 
@@ -167,6 +175,8 @@ API breaks.
 of support.
 
 ### BUILD-F-8 — RSyntaxTextArea 4  ·  `DEFERRED`
+
+**GitHub:** [openflexo-team/openflexo-buildplugin#5](https://github.com/openflexo-team/openflexo-buildplugin/issues/5)
 
 **Decision (2026-10-22).** `gina/flexographicutils` stays on the 3.x line: rsyntaxtextarea 3.6.3, autocomplete 3.3.3, rstaui 3.3.2, languagesupport 3.4.1
 (from 3.0.4, 3.3.1, 3.3.1 and 3.3.0). Version 4.0 of the first three exists (4.0.1 for rsyntaxtextarea), but RSTALanguageSupport, which brings the code
@@ -183,6 +193,8 @@ output of the committed `.flex` is identical to the committed class), see `TOKEN
 
 ### BUILD-F-5 — Hibernate 7  ·  `TODO`
 
+**GitHub:** [openflexo-team/openflexo-buildplugin#6](https://github.com/openflexo-team/openflexo-buildplugin/issues/6)
+
 **Problem.** `jdbc-ta` is on Hibernate 6.6 (the last 6.x). Hibernate 7 (7.4, Jakarta Persistence 3.2, Java 17) is the
 current line. The adapter uses Hibernate internals (`MetadataBuilderImpl`, `InFlightMetadataCollectorImpl`,
 `BasicValue`, `HbnMetadataUtils`): expect another round of changes.
@@ -190,6 +202,8 @@ current line. The adapter uses Hibernate internals (`MetadataBuilderImpl`, `InFl
 **Acceptance.** `jdbc-ta-test` and `jdbc-ta-ui` green (65 tests, the FML script `TestJDBCQuery` included).
 
 ### BUILD-F-6 — Version policy of the build plugins  ·  `IN PROGRESS`
+
+**GitHub:** [openflexo-team/openflexo-buildplugin#7](https://github.com/openflexo-team/openflexo-buildplugin/issues/7)
 
 **Problem (2026-10-21).** Versions of the plugins changed content without changing number: the build plugin `0.3` is
 published by the Jenkins job of each push of the 3.0 branch (and probably of 2.99), into `openflexo-release`, which accepts
@@ -207,6 +221,8 @@ on JAVA 8, and the Artifactory plugin was resolved as `latest.release` in two pl
 **Release order.** SableCC plugin 1.4.0, build plugin 0.4, then the repositories; the wrappers move to Gradle 9 last.
 
 ### BUILD-F-7 — Libraries with a known vulnerability  ·  `IN PROGRESS`
+
+**GitHub:** [openflexo-team/openflexo-buildplugin#8](https://github.com/openflexo-team/openflexo-buildplugin/issues/8)
 
 **Problem.** The first run of `tools/dependency-report.py` (2026-10-22) found 8 versions with known vulnerabilities in the
 build of the workspace (the unbuilt sample `pamela-spring-security-uc` is left out).
@@ -253,6 +269,8 @@ dependency left but SableCC itself). The plugin keeps the number 1.4.0, publishe
 ## Packaging
 
 ### BUILD-F-9 — A `jpackage` task for the applications  ·  `DONE` (2026-10-24), follow-ups open
+
+**GitHub:** [openflexo-team/openflexo-buildplugin#9](https://github.com/openflexo-team/openflexo-buildplugin/issues/9)
 
 **Problem.** The 2.99 installers came out of a Maven + Ant chain (launch4j, appbundler, `genisoimage`) that bundled no Java runtime and
 only ran on Java 8. With Java 17, `jpackage` can build native installers that embed their own runtime.
