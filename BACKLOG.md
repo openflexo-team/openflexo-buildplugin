@@ -201,7 +201,7 @@ current line. The adapter uses Hibernate internals (`MetadataBuilderImpl`, `InFl
 
 **Acceptance.** `jdbc-ta-test` and `jdbc-ta-ui` green (65 tests, the FML script `TestJDBCQuery` included).
 
-### BUILD-F-6 — Version policy of the build plugins  ·  `IN PROGRESS`
+### BUILD-F-6 — Version policy of the build plugins  ·  `DONE`
 
 **GitHub:** [openflexo-team/openflexo-buildplugin#7](https://github.com/openflexo-team/openflexo-buildplugin/issues/7)
 
@@ -220,7 +220,9 @@ on JAVA 8, and the Artifactory plugin was resolved as `latest.release` in two pl
 
 **Release order.** SableCC plugin 1.4.0, build plugin 0.4, then the repositories; the wrappers move to Gradle 9 last.
 
-### BUILD-F-7 — Libraries with a known vulnerability  ·  `IN PROGRESS`
+**Resolution (2026-11-24).** Closed by decision of the user. Checked: `buildplugin:0.4` pinned, SableCC plugin `[1.4.0,)` on branch `3.0`, 43 of the 44 repositories with a wrapper on Gradle 9.8.2 (`website` is still on 8.14.3, not a Java build). Accepted, not re-checked: Artifactory plugin `5.2.0` everywhere and the Jenkins job `gradle-sablecc-plugin-3.0`.
+
+### BUILD-F-7 — Libraries with a known vulnerability  ·  `DONE`
 
 **GitHub:** [openflexo-team/openflexo-buildplugin#8](https://github.com/openflexo-team/openflexo-buildplugin/issues/8)
 
@@ -265,6 +267,8 @@ dependency left but SableCC itself). The plugin keeps the number 1.4.0, publishe
 **Left (2026-10-22 report).** No known vulnerability in the build of the workspace once the report is rerun (the previous one had 8).
 
 **Acceptance.** `tools/dependency-report.py` reports no known vulnerability for the build of the workspace.
+
+**Resolution (2026-11-24).** The dependency report (`tools/dependency-report.py`), rerun over the whole workspace, lists 83 libraries and no version with a known vulnerability (OSV); the report of 2026-10-22 had 8. The next step on Jena (the new `org.apache.jena.ontapi`) is an evolution, not a vulnerability.
 
 ## Packaging
 
