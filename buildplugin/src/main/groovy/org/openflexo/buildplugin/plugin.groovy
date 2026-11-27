@@ -307,10 +307,6 @@ class OpenFlexoConvention {
         return "org.openflexo:diagram-ta:${project.openflexo.openflexoVersion}"
     }
 
-    String ginaConnector() {
-        return "org.openflexo:gina-ta:${project.openflexo.openflexoVersion}"
-    }
-
     String jdbcConnector() {
         return "org.openflexo:jdbc-ta:${project.openflexo.openflexoVersion}"
     }
@@ -396,10 +392,6 @@ class OpenFlexoConvention {
 
     String diagramConnectorUi() {
         return "org.openflexo:diagram-ta-ui:${project.openflexo.openflexoVersion}"
-    }
-
-    String ginaConnectorUi() {
-        return "org.openflexo:gina-ta-ui:${project.openflexo.openflexoVersion}"
     }
 
     String jdbcConnectorUi() {
