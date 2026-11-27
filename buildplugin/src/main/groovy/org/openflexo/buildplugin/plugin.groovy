@@ -69,6 +69,7 @@ class OpenFlexoThirdParty {
     static final String DOCX4J = "17.3.4"
     static final String JAKARTA_XML_BIND = "4.0.5"
     static final String JAXB_RUNTIME = "4.0.9"
+    static final String XSOM = "4.0.9"
     static final String COMMONS_IO = "2.22.0"
     static final String COMMONS_LANG3 = "3.21.0"
     static final String COMMONS_COMPRESS = "1.28.0"
@@ -614,6 +615,11 @@ class OpenFlexoConvention {
 
     String jaxbRuntime() {
         return "org.glassfish.jaxb:jaxb-runtime:${OpenFlexoThirdParty.JAXB_RUNTIME}"
+    }
+
+    // XSOM: XML Schema object model, read by the XML technology adapter (group org.glassfish.jaxb since 2.3, formerly com.sun.xsom)
+    String xsom() {
+        return "org.glassfish.jaxb:xsom:${OpenFlexoThirdParty.XSOM}"
     }
 
     // Hibernate ORM (group org.hibernate.orm since 6.0, Jakarta Persistence)
